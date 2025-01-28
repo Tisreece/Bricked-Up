@@ -6,12 +6,18 @@
 #include "GameFramework/PlayerController.h"
 #include "BU_PlayerController.generated.h"
 
-/**
- * 
- */
+//
+//
 UCLASS()
 class BRICKEDUP_API ABU_PlayerController : public APlayerController
 {
 	GENERATED_BODY()
+
+protected:
+	virtual void BeginPlay() override;
+
+public:
+	virtual void Tick(float DeltaTime) override;
+	ABU_PlayerController();
 	
 };

@@ -18,8 +18,7 @@
 			"DOTNET_HOST_PATH": "C:\\Program Files\\Epic Games\\UE_5.5\\Engine\\Binaries\\ThirdParty\\DotNet\\8.0.300\\win-x64\\dotnet.exe",
 			"DOTNET_MULTILEVEL_LOOKUP": "0",
 			"DOTNET_ROLL_FORWARD": "LatestMajor"
-		},
-		"dotnet.defaultSolution": "disable"
+		}
 	},
 	"extensions": {
 		"recommendations": [
@@ -38,7 +37,7 @@
 					"BrickedUp",
 					"Win64",
 					"Debug",
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject",
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -55,7 +54,7 @@
 					"BrickedUp",
 					"Win64",
 					"Debug",
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject",
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -75,7 +74,7 @@
 					"BrickedUp",
 					"Win64",
 					"Debug",
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject",
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -92,7 +91,7 @@
 					"BrickedUp",
 					"Win64",
 					"DebugGame",
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject",
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -109,7 +108,7 @@
 					"BrickedUp",
 					"Win64",
 					"DebugGame",
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject",
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -129,7 +128,7 @@
 					"BrickedUp",
 					"Win64",
 					"DebugGame",
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject",
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -146,7 +145,7 @@
 					"BrickedUp",
 					"Win64",
 					"Development",
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject",
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -163,7 +162,7 @@
 					"BrickedUp",
 					"Win64",
 					"Development",
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject",
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -183,7 +182,7 @@
 					"BrickedUp",
 					"Win64",
 					"Development",
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject",
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -200,7 +199,7 @@
 					"BrickedUp",
 					"Win64",
 					"Test",
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject",
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -217,7 +216,7 @@
 					"BrickedUp",
 					"Win64",
 					"Test",
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject",
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -237,7 +236,7 @@
 					"BrickedUp",
 					"Win64",
 					"Test",
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject",
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -254,7 +253,7 @@
 					"BrickedUp",
 					"Win64",
 					"Shipping",
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject",
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -271,7 +270,7 @@
 					"BrickedUp",
 					"Win64",
 					"Shipping",
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject",
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -291,7 +290,7 @@
 					"BrickedUp",
 					"Win64",
 					"Shipping",
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject",
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -308,7 +307,7 @@
 					"BrickedUpEditor",
 					"Win64",
 					"Debug",
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject",
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -325,7 +324,7 @@
 					"BrickedUpEditor",
 					"Win64",
 					"Debug",
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject",
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -345,7 +344,7 @@
 					"BrickedUpEditor",
 					"Win64",
 					"Debug",
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject",
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -362,7 +361,7 @@
 					"BrickedUpEditor",
 					"Win64",
 					"DebugGame",
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject",
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -379,7 +378,7 @@
 					"BrickedUpEditor",
 					"Win64",
 					"DebugGame",
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject",
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -399,7 +398,7 @@
 					"BrickedUpEditor",
 					"Win64",
 					"DebugGame",
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject",
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -416,7 +415,7 @@
 					"BrickedUpEditor",
 					"Win64",
 					"Development",
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject",
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -433,7 +432,7 @@
 					"BrickedUpEditor",
 					"Win64",
 					"Development",
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject",
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -453,7 +452,7 @@
 					"BrickedUpEditor",
 					"Win64",
 					"Development",
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject",
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject",
 					"-waitmutex"
 				],
 				"problemMatcher": "$msCompile",
@@ -470,7 +469,7 @@
 			{
 				"name": "Launch BrickedUp (Debug)",
 				"request": "launch",
-				"program": "E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\Binaries\\Win64\\UnrealGame-Win64-Debug.exe",
+				"program": "E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\Binaries\\Win64\\UnrealGame-Win64-Debug.exe",
 				"preLaunchTask": "BrickedUp Win64 Debug Build",
 				"args": [
 				],
@@ -486,7 +485,7 @@
 			{
 				"name": "Launch BrickedUp (DebugGame)",
 				"request": "launch",
-				"program": "E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\Binaries\\Win64\\UnrealGame-Win64-DebugGame.exe",
+				"program": "E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\Binaries\\Win64\\UnrealGame-Win64-DebugGame.exe",
 				"preLaunchTask": "BrickedUp Win64 DebugGame Build",
 				"args": [
 				],
@@ -502,7 +501,7 @@
 			{
 				"name": "Launch BrickedUp (Development)",
 				"request": "launch",
-				"program": "E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\Binaries\\Win64\\UnrealGame.exe",
+				"program": "E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\Binaries\\Win64\\UnrealGame.exe",
 				"preLaunchTask": "BrickedUp Win64 Development Build",
 				"args": [
 				],
@@ -518,7 +517,7 @@
 			{
 				"name": "Launch BrickedUp (Test)",
 				"request": "launch",
-				"program": "E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\Binaries\\Win64\\UnrealGame-Win64-Test.exe",
+				"program": "E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\Binaries\\Win64\\UnrealGame-Win64-Test.exe",
 				"preLaunchTask": "BrickedUp Win64 Test Build",
 				"args": [
 				],
@@ -534,7 +533,7 @@
 			{
 				"name": "Launch BrickedUp (Shipping)",
 				"request": "launch",
-				"program": "E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\Binaries\\Win64\\UnrealGame-Win64-Shipping.exe",
+				"program": "E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\Binaries\\Win64\\UnrealGame-Win64-Shipping.exe",
 				"preLaunchTask": "BrickedUp Win64 Shipping Build",
 				"args": [
 				],
@@ -553,7 +552,7 @@
 				"program": "C:\\Program Files\\Epic Games\\UE_5.5\\Engine\\Binaries\\Win64\\UnrealEditor-Win64-Debug.exe",
 				"preLaunchTask": "BrickedUpEditor Win64 Debug Build",
 				"args": [
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject"
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject"
 				],
 				"cwd": "C:\\Program Files\\Epic Games\\UE_5.5",
 				"stopAtEntry": false,
@@ -570,7 +569,7 @@
 				"program": "C:\\Program Files\\Epic Games\\UE_5.5\\Engine\\Binaries\\Win64\\UnrealEditor-Win64-DebugGame.exe",
 				"preLaunchTask": "BrickedUpEditor Win64 DebugGame Build",
 				"args": [
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject"
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject"
 				],
 				"cwd": "C:\\Program Files\\Epic Games\\UE_5.5",
 				"stopAtEntry": false,
@@ -587,7 +586,7 @@
 				"program": "C:\\Program Files\\Epic Games\\UE_5.5\\Engine\\Binaries\\Win64\\UnrealEditor.exe",
 				"preLaunchTask": "BrickedUpEditor Win64 Development Build",
 				"args": [
-					"E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject"
+					"E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject"
 				],
 				"cwd": "C:\\Program Files\\Epic Games\\UE_5.5",
 				"stopAtEntry": false,
@@ -607,7 +606,7 @@
 				"args": [
 					"-projectfiles",
 					"-vscode",
-					"-project=E:\\GameDev\\Games\\BrickedUp\\BrickedUp\\BrickedUp.uproject",
+					"-project=E:\\GameDev\\Games\\BrickedUp\\Bricked-Up\\BrickedUp.uproject",
 					"-game",
 					"-engine",
 					"-dotnet"
