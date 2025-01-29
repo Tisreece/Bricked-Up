@@ -4,10 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+
+//#include "PlayerPaddle.h"
+
 #include "BU_PlayerController.generated.h"
+
+class APlayerPaddle;
 
 //
 //
+
 UCLASS()
 class BRICKEDUP_API ABU_PlayerController : public APlayerController
 {
@@ -19,5 +25,8 @@ protected:
 public:
 	virtual void Tick(float DeltaTime) override;
 	ABU_PlayerController();
+
+	//Variables
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Player") APlayerPaddle* PlayerPaddle;
 	
 };
