@@ -3,6 +3,8 @@
 
 #include "BU_PlayerController.h"
 
+#include "PlayerPaddle.h"
+
 //Sets default values
 ABU_PlayerController::ABU_PlayerController()
 {

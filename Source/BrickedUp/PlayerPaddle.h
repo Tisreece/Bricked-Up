@@ -29,7 +29,18 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	//Components
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Component") class UStaticMeshComponent* PaddleTest;
+	
+	
+	//Variables
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Paddle") float Speed; 
+	
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Input") void SetPlayerController();
+	UFUNCTION(BlueprintCallable, Category="Input") void MovePaddle(float X, float Y);
+
+private: 
+
 
 };
