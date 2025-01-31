@@ -10,11 +10,15 @@ APlayerPaddle::APlayerPaddle()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	
+	//Scene Components
 	USceneComponent* DefaultSceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("DefaultSceneRoot"));
 	RootComponent = DefaultSceneRoot;
 
-	PaddleTest = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Paddle Test"));
-	PaddleTest->SetupAttachment(DefaultSceneRoot);
+	Paddle = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Paddle"));
+	Paddle->SetupAttachment(DefaultSceneRoot);
+
+	//Variables
+	Speed = 2.0f;
 
 }
 
@@ -55,8 +59,9 @@ void APlayerPaddle::SetPlayerController()
 	}
 }
 
-void APlayerPaddle::MovePaddle(float X, float Y)
+void APlayerPaddle::MovePaddle(float X)
 {
-	
+	FVector Movement(X * Speed * GetWorld()->GetDeltaSeconds(), 0.0f, 0.0f);
+	Paddle->AddLocalOffset(Movement, true);
 }
 

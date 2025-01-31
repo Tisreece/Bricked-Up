@@ -5,8 +5,6 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 
-//#include "PlayerPaddle.h"
-
 #include "BU_PlayerController.generated.h"
 
 class APlayerPaddle;

@@ -5,8 +5,6 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 
-//#include "BU_PlayerController.h"
-
 #include "PlayerPaddle.generated.h"
 
 UCLASS()
@@ -30,7 +28,7 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	//Components
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Component") class UStaticMeshComponent* PaddleTest;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Component") class UStaticMeshComponent* Paddle;
 	
 	
 	//Variables
@@ -38,7 +36,7 @@ public:
 	
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Input") void SetPlayerController();
-	UFUNCTION(BlueprintCallable, Category="Input") void MovePaddle(float X, float Y);
+	UFUNCTION(BlueprintCallable, Category="Input") void MovePaddle(float X);
 
 private: 
 
