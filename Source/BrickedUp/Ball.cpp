@@ -2,6 +2,8 @@
 
 
 #include "Ball.h"
+#include "Components/SphereComponent.h"
+#include "Components/StaticMeshComponent.h"
 
 // Sets default values
 ABall::ABall()
@@ -10,11 +12,12 @@ ABall::ABall()
 	PrimaryActorTick.bCanEverTick = true;
 
 	//Scene Components
-	USceneComponent* DefaultSceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("DefaultSceneRoot"));
-	RootComponent = DefaultSceneRoot;
+	BallCollision = CreateDefaultSubobject<USphereComponent>(TEXT("Ball Collision"));
+	RootComponent = BallCollision;
 
 	Ball = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Ball"));
-	Ball->SetupAttachment(DefaultSceneRoot);
+	Ball->SetupAttachment(BallCollision);
+
 
 }
 
@@ -36,16 +39,8 @@ void ABall::Tick(float DeltaTime)
 
 void ABall::ApplyPhysics(float DeltaTime)
 {
-	Velocity.Z += Gravity * DeltaTime;
-
-	FHitResult Hit;
-	AddActorWorldOffset(Velocity * DeltaTime, true, &Hit);
-
-	if (Hit.IsValidBlockingHit())
-    {
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, "Hit");
-        // Reflect the velocity along the hit surface's normal (bounce)
-        Velocity = FVector::VectorPlaneProject(Velocity, Hit.Normal);
-    }
+	Velocity = Velocity.GetSafeNormal() * Speed;
+	
+	AddActorWorldOffset(Velocity * DeltaTime, true);
 }
 
