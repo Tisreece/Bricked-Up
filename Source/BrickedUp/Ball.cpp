@@ -44,3 +44,19 @@ void ABall::ApplyPhysics(float DeltaTime)
 	AddActorWorldOffset(Velocity * DeltaTime, true);
 }
 
+void ABall::ReflectMovement(bool HitPlayer, FVector HitNormal)
+{
+	if (HitPlayer)
+	{
+		if (CanHitPlayer)
+		{
+			Velocity = Velocity.MirrorByVector(HitNormal);
+			CanHitPlayer = false;
+		}
+		AddActorWorldOffset(HitNormal * PlayerImpactOffset, true);
+	}
+	else
+	{
+		Velocity = Velocity.MirrorByVector(HitNormal);
+	}
+}
