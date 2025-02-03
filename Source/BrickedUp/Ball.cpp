@@ -44,13 +44,16 @@ void ABall::ApplyPhysics(float DeltaTime)
 	AddActorWorldOffset(Velocity * DeltaTime, true);
 }
 
-void ABall::ReflectMovement(bool HitPlayer, FVector HitNormal)
+void ABall::ReflectMovement(bool HitPlayer, FVector HitNormal, FVector PaddleVelocity)
 {
 	if (HitPlayer)
 	{
 		if (CanHitPlayer)
 		{
 			Velocity = Velocity.MirrorByVector(HitNormal);
+
+			Velocity.Y += PaddleVelocity.X * MomentumInfluenceFactor;
+			Velocity.Z += PlayerVelocityBoost;
 			CanHitPlayer = false;
 		}
 		AddActorWorldOffset(HitNormal * PlayerImpactOffset, true);

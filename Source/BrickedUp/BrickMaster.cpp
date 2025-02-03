@@ -19,6 +19,7 @@ ABrickMaster::ABrickMaster()
 
 	Brick = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Brick"));
 	Brick->SetupAttachment(BrickCollision);
+	Brick->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 	//Bind Events
 	BrickCollision->OnComponentHit.AddDynamic(this, &ABrickMaster::OnHit);

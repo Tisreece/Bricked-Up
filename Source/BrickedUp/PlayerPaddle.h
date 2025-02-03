@@ -33,6 +33,7 @@ public:
 	
 	//Variables
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Paddle") float Speed; 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Paddle") FVector CurrentVelocity;
 	
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Input") void SetPlayerController();

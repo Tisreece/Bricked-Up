@@ -62,6 +62,10 @@ void APlayerPaddle::SetPlayerController()
 void APlayerPaddle::MovePaddle(float X)
 {
 	FVector Movement(X * Speed * GetWorld()->GetDeltaSeconds(), 0.0f, 0.0f);
+	// float MovementSpeed = Movement.Size();
+	// CurrentVelocity = Movement.GetSafeNormal() * MovementSpeed;
+	CurrentVelocity = Movement / GetWorld()->GetDeltaSeconds();
+	CurrentVelocity = CurrentVelocity * -1;
 	Paddle->AddLocalOffset(Movement, true);
 }
 
