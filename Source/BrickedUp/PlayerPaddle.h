@@ -34,10 +34,14 @@ public:
 	//Variables
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Paddle") float Speed; 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Paddle") FVector CurrentVelocity;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") float AscendSpeed = 1.0f;
 	
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Input") void SetPlayerController();
 	UFUNCTION(BlueprintCallable, Category="Input") void MovePaddle(float X);
+
+	UFUNCTION(BlueprintCallable, Category="Movement") void AscendPaddle();
 
 private: 
 

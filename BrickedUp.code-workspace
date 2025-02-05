@@ -21,7 +21,8 @@
 		},
 		"files.associations": {
 			"*.rh": "cpp"
-		}
+		},
+		"editor.bracketPairColorization.enabled": false
 	},
 	"extensions": {
 		"recommendations": [

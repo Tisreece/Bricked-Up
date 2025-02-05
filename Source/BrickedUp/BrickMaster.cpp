@@ -4,6 +4,7 @@
 #include "BrickMaster.h"
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Ball.h"
 
 // Sets default values
 ABrickMaster::ABrickMaster()
@@ -41,14 +42,9 @@ void ABrickMaster::Tick(float DeltaTime)
 
 void ABrickMaster::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	if (OtherActor && OtherActor != this)
+	if (OtherActor && OtherActor != this && OtherActor->IsA(ABall::StaticClass()))
 	{
 		HitEffect();
 	}
 }
-
-// void ABrickMaster::HitEffect()
-// {
-
-// }
 

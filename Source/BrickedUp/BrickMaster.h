@@ -30,6 +30,8 @@ public:
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Hit") 
 		void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+	
+	//Events
 	UFUNCTION(BlueprintImplementableEvent, Category="Hit") void HitEffect();
 
 };
