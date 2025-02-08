@@ -22,7 +22,16 @@
 		"files.associations": {
 			"*.rh": "cpp"
 		},
-		"editor.bracketPairColorization.enabled": false
+		"editor.bracketPairColorization.enabled": true,
+		"workbench.colorCustomizations": {
+			// "activityBar.background": "#00ad00",
+			// "activityBar.foreground": "#272727",
+			// "activityBar.inactiveForeground": "#000000",
+			"titleBar.activeBackground": "#23c923",
+			"titleBar.activeForeground": "#000000",
+      		"titleBar.inactiveBackground": "#108d10",
+			"titleBar.inactiveForeground": "#000000"
+		}
 	},
 	"extensions": {
 		"recommendations": [

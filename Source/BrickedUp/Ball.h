@@ -4,10 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Interface_KillZone.h"
+
 #include "Ball.generated.h"
 
 UCLASS()
-class BRICKEDUP_API ABall : public AActor
+class BRICKEDUP_API ABall : public AActor, public IInterface_KillZone
 {
 	GENERATED_BODY()
 	
@@ -38,5 +40,8 @@ public:
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Movement") void ApplyPhysics(float DeltaTime);
 	UFUNCTION(BlueprintCallable, Category="Movement") void ReflectMovement(bool HitPlayer, FVector HitNormal, FVector PaddleVelocity);
+
+	//Interface
+	virtual void HitKillZone_Implementation() override;
 
 };

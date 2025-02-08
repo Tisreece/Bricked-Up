@@ -13,5 +13,13 @@ UCLASS()
 class BRICKEDUP_API ABU_GameMode : public AGameModeBase
 {
 	GENERATED_BODY()
+
+public:
+
+	//Functions
+	UFUNCTION(BlueprintCallable, Category="Lose Condition") void CheckBallCount(int32& BallCount);
+
+	//Events
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="Lose Condition") void BallDestroyed();
 	
 };

@@ -5,6 +5,8 @@
 #include "Components/SphereComponent.h"
 #include "Components/StaticMeshComponent.h"
 
+#include "Interface_KillZone.h"
+
 // Sets default values
 ABall::ABall()
 {
@@ -62,4 +64,9 @@ void ABall::ReflectMovement(bool HitPlayer, FVector HitNormal, FVector PaddleVel
 	{
 		Velocity = Velocity.MirrorByVector(HitNormal);
 	}
+}
+
+void ABall::HitKillZone_Implementation()
+{
+
 }
