@@ -2,6 +2,9 @@
 
 
 #include "PlayerPaddle.h"
+#include "Components/BoxComponent.h"
+#include "Components/StaticMeshComponent.h"
+
 #include "BU_PlayerController.h"
 
 // Sets default values
@@ -11,11 +14,24 @@ APlayerPaddle::APlayerPaddle()
 	PrimaryActorTick.bCanEverTick = true;
 	
 	//Scene Components
-	USceneComponent* DefaultSceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("DefaultSceneRoot"));
-	RootComponent = DefaultSceneRoot;
+	PaddleRoot = CreateDefaultSubobject<UBoxComponent>(TEXT("Paddle Root"));
+	RootComponent = PaddleRoot;
+	PaddleRoot->SetBoxExtent(FVector(0.1f, 0.1f, 0.1f));
+	PaddleRoot->SetCollisionProfileName(TEXT("NoCollision"));
+
+	PaddleCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("Paddle Collision"));
+	PaddleCollision->SetupAttachment(PaddleRoot);
+	PaddleCollision->SetBoxExtent(FVector(10.0f, 1.25f, 1.25f));
+	PaddleCollision->SetCollisionProfileName(TEXT("BlockAllDynamic"));
 
 	Paddle = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Paddle"));
-	Paddle->SetupAttachment(DefaultSceneRoot);
+	Paddle->SetupAttachment(PaddleCollision);
+	Paddle->SetCollisionProfileName(TEXT("NoCollision"));
+	
+	PaddleOverlapCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("Paddle Overlap Collision"));
+	PaddleOverlapCollision->SetupAttachment(PaddleCollision);
+	PaddleOverlapCollision->SetBoxExtent(FVector(9.8f, 1.5f, 1.5f));
+	PaddleOverlapCollision->SetCollisionProfileName(TEXT("OverlapAllDynamic"));
 
 	//Variables
 	Speed = 2.0f;
@@ -67,7 +83,7 @@ void APlayerPaddle::MovePaddle(float X)
 	CurrentVelocity = Movement / GetWorld()->GetDeltaSeconds();
 	CurrentVelocity = CurrentVelocity * -1;
 
-	Paddle->AddLocalOffset(Movement, true);
+	PaddleCollision->AddLocalOffset(Movement, true);
 }
 
 void APlayerPaddle::AscendPaddle()
