@@ -22,3 +22,9 @@ void ABU_PlayerController::Tick(float DeltaTime)
     Super::Tick(DeltaTime);
 }
 
+void ABU_PlayerController::SetCursorAndInput()
+{
+    bShowMouseCursor = false;
+    SetInputMode(FInputModeGameOnly());
+}
+

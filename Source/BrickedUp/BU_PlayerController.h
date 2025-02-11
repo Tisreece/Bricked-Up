@@ -26,5 +26,8 @@ public:
 
 	//Variables
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Player") APlayerPaddle* PlayerPaddle;
+
+	//Functions
+	UFUNCTION(BlueprintCallable, Category="Setup") void SetCursorAndInput();
 	
 };
