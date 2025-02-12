@@ -13,3 +13,8 @@ void ABU_GameMode::CheckBallCount(int32& BallCount)
     BallCount = FoundBalls.Num();
 }
 
+void ABU_GameMode::AddScore(float ScoreToAdd)
+{
+    this->Score += ScoreToAdd;
+}
+

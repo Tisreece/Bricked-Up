@@ -27,9 +27,13 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Component") class UBoxComponent* BrickCollision;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Component") class UStaticMeshComponent* Brick;
 
+	//Variables
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Scoring") float Value = 10.0f;
+
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Hit") 
 		void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+	UFUNCTION(BlueprintCallable, Category="Scoring") void AddScore(float ScoreToAdd, float& NewScore);
 	
 	//Events
 	UFUNCTION(BlueprintImplementableEvent, Category="Hit") void HitEffect();

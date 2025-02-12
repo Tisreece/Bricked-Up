@@ -5,6 +5,7 @@
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Ball.h"
+#include "BU_GameMode.h"
 
 // Sets default values
 ABrickMaster::ABrickMaster()
@@ -45,6 +46,17 @@ void ABrickMaster::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, 
 	if (OtherActor && OtherActor != this && OtherActor->IsA(ABall::StaticClass()))
 	{
 		HitEffect();
+	}
+}
+
+void ABrickMaster::AddScore(float ScoreToAdd, float& NewScore)
+{
+	ABU_GameMode* GameMode = Cast<ABU_GameMode>(GetWorld()->GetAuthGameMode());
+
+	if (GameMode)
+	{
+		GameMode->AddScore(ScoreToAdd);
+		NewScore = GameMode->Score;
 	}
 }
 

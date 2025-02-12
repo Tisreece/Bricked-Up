@@ -16,8 +16,13 @@ class BRICKEDUP_API ABU_GameMode : public AGameModeBase
 
 public:
 
+	//Variables
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Scoring") float Score = 0.0f;
+
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Lose Condition") void CheckBallCount(int32& BallCount);
+
+	UFUNCTION(BlueprintCallable, Category="Scoring") void AddScore(float ScoreToAdd);
 
 	//Events
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="Lose Condition") void BallDestroyed();
