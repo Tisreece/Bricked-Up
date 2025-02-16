@@ -16,5 +16,6 @@ void ABU_GameMode::CheckBallCount(int32& BallCount)
 void ABU_GameMode::AddScore(float ScoreToAdd)
 {
     this->Score += ScoreToAdd;
+    ScoreChanged.Broadcast();
 }
 

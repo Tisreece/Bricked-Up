@@ -39,12 +39,21 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Paddle") FVector CurrentVelocity;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") float AscendSpeed = 1.0f;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Scoring") float PreviousCheckpoint;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Scoring") float NextCheckpoint;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Scoring") float CheckpointScore = 25.0f;
 	
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Input") void SetPlayerController();
 	UFUNCTION(BlueprintCallable, Category="Input") void MovePaddle(float X);
 
 	UFUNCTION(BlueprintCallable, Category="Movement") void AscendPaddle();
+
+	UFUNCTION(BlueprintCallable, Category="Scoring") void SetInitialCheckpoint();
+	UFUNCTION(BlueprintCallable, Category="Scoring") void CheckNextCheckpoint(ABU_GameMode* GameMode, bool& CheckpointReached);
+	UFUNCTION(BlueprintCallable, Category="Scoring") void SetNextCheckpoint(ABU_GameMode* GameMode);
+	UFUNCTION(BlueprintCallable, Category="Scoring") void AddScore(float ScoreToAdd, float& NewScore);
 
 private: 
 

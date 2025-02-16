@@ -4,6 +4,7 @@
 #include "PlayerPaddle.h"
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "BU_GameMode.h"
 
 #include "BU_PlayerController.h"
 
@@ -93,3 +94,34 @@ void APlayerPaddle::AscendPaddle()
 	AddActorWorldOffset(Movement, true);
 }
 
+void APlayerPaddle::SetInitialCheckpoint()
+{
+	PreviousCheckpoint = GetActorLocation().Z;
+}
+
+void APlayerPaddle::CheckNextCheckpoint(ABU_GameMode* GameMode, bool& CheckpointReached)
+{
+	if(!GameMode) return;
+	
+	float CurrentHeight = GetActorLocation().Z;
+	float TargetHeight = PreviousCheckpoint + GameMode->CheckpointInterval;
+	
+	CheckpointReached = (CurrentHeight >= TargetHeight);
+}
+
+void APlayerPaddle::SetNextCheckpoint(ABU_GameMode* GameMode)
+{
+	float TargetHeight = PreviousCheckpoint + GameMode->CheckpointInterval;
+	PreviousCheckpoint = TargetHeight;
+}
+
+void APlayerPaddle::AddScore(float ScoreToAdd, float& NewScore)
+{
+	ABU_GameMode* GameMode = Cast<ABU_GameMode>(GetWorld()->GetAuthGameMode());
+
+	if (GameMode)
+	{
+		GameMode->AddScore(ScoreToAdd);
+		NewScore = GameMode->Score;
+	}
+}
