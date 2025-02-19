@@ -4,10 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Interface_KillZone.h"
+
 #include "BrickMaster.generated.h"
 
 UCLASS()
-class BRICKEDUP_API ABrickMaster : public AActor
+class BRICKEDUP_API ABrickMaster : public AActor, public IInterface_KillZone
 {
 	GENERATED_BODY()
 	
@@ -37,5 +39,8 @@ public:
 	
 	//Events
 	UFUNCTION(BlueprintImplementableEvent, Category="Hit") void HitEffect();
+
+	//Interface
+	virtual void HitKillZone_Implementation() override;
 
 };

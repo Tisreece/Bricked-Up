@@ -7,6 +7,8 @@
 #include "Ball.h"
 #include "BU_GameMode.h"
 
+#include "Interface_KillZone.h"
+
 // Sets default values
 ABrickMaster::ABrickMaster()
 {
@@ -58,5 +60,10 @@ void ABrickMaster::AddScore(float ScoreToAdd, float& NewScore)
 		GameMode->AddScore(ScoreToAdd);
 		NewScore = GameMode->Score;
 	}
+}
+
+void ABrickMaster::HitKillZone_Implementation()
+{
+
 }
 
