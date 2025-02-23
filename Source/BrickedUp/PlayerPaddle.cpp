@@ -36,6 +36,7 @@ APlayerPaddle::APlayerPaddle()
 
 	//Variables
 	Speed = 2.0f;
+	AscendSpeed = AscendSpeedDefault;
 
 }
 
@@ -123,5 +124,17 @@ void APlayerPaddle::AddScore(float ScoreToAdd, float& NewScore)
 	{
 		GameMode->AddScore(ScoreToAdd);
 		NewScore = GameMode->Score;
+	}
+}
+
+void APlayerPaddle::SetSprint(bool Sprint)
+{
+	if(Sprint)
+	{
+		AscendSpeed = SprintSpeed;
+	}
+	else
+	{
+		AscendSpeed = AscendSpeedDefault;
 	}
 }

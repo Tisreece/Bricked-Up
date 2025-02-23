@@ -38,7 +38,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Paddle") float Speed; 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Paddle") FVector CurrentVelocity;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") float AscendSpeed = 1.0f;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Movement") float AscendSpeed;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") float AscendSpeedDefault = 1.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") float SprintSpeed = 5.0f;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Scoring") float PreviousCheckpoint;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Scoring") float NextCheckpoint;
@@ -47,7 +49,8 @@ public:
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Input") void SetPlayerController();
 	UFUNCTION(BlueprintCallable, Category="Input") void MovePaddle(float X);
-
+	
+	UFUNCTION(BlueprintCallable, Category="Movement") void SetSprint(bool Sprint);
 	UFUNCTION(BlueprintCallable, Category="Movement") void AscendPaddle();
 
 	UFUNCTION(BlueprintCallable, Category="Scoring") void SetInitialCheckpoint();
