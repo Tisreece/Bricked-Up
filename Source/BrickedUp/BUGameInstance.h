@@ -25,8 +25,10 @@ public:
 	//Functions	
 	UFUNCTION(BlueprintCallable, Category="SaveGame") void LoadGame();
 	UFUNCTION(BlueprintCallable, Category="SaveGame") void CreateNewSave();
+	UFUNCTION(BlueprintCallable, category="Leaderboard") void InsertLeaderboardEntry();
 
 	//Events
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="SaveGame") void SaveGame();
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="Leaderboard") void AddNewScore();
 		
 };
