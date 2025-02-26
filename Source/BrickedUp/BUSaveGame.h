@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/SaveGame.h"
+#include "LeaderboardEntry_Struct.h"
+
 #include "BUSaveGame.generated.h"
 
 /**
@@ -18,5 +20,5 @@ public:
 	//UBUSaveGame();
 
 	//Variables
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Leaderboard") TMap<FString, float> Leaderboard;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Leaderboard") TArray<FLeaderboardEntry_Struct> Leaderboard;
 };

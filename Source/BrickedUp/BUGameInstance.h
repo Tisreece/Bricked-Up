@@ -25,5 +25,8 @@ public:
 	//Functions	
 	UFUNCTION(BlueprintCallable, Category="SaveGame") void LoadGame();
 	UFUNCTION(BlueprintCallable, Category="SaveGame") void CreateNewSave();
+
+	//Events
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="SaveGame") void SaveGame();
 		
 };
