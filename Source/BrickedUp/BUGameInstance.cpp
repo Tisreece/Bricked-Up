@@ -6,6 +6,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "BU_GameMode.h"
 #include "Algo/Sort.h"
+#include "LeaderboardEntry_Struct.h"
 
 void UBUGameInstance::Init()
 {
@@ -20,12 +21,11 @@ void UBUGameInstance::LoadGame()
 
         if (SaveGameRef)
         {
-            GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, TEXT("Save Game Loaded"));
+            //Save Game Loaded
         }
    }
    else //Save game slot does not exist
    {
-    GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, TEXT("Save Game Does Not Exist"));
     CreateNewSave();
    }
 }
@@ -37,11 +37,10 @@ void UBUGameInstance::CreateNewSave()
     if (SaveGameRef)
     {
         UGameplayStatics::SaveGameToSlot(SaveGameRef, GameSlotName, 0);
-        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, TEXT("Save Game Created"));
     }
 }
 
-void UBUGameInstance::InsertLeaderboardEntry()
+void UBUGameInstance::InsertLeaderboardEntry(FString EntryName)
 {
     //Get the score from the game mode
     ABU_GameMode* CurrentGM = Cast<ABU_GameMode>(GetWorld()->GetAuthGameMode());
@@ -49,7 +48,7 @@ void UBUGameInstance::InsertLeaderboardEntry()
 
     // Create leaderboard entry
     FLeaderboardEntry_Struct NewEntry;
-    NewEntry.Name = TEXT("Test");
+    NewEntry.Name = EntryName;
     NewEntry.Score = NewScore;
 
     SaveGameRef->Leaderboard.Add(NewEntry);
@@ -62,6 +61,26 @@ void UBUGameInstance::InsertLeaderboardEntry()
     if (SaveGameRef->Leaderboard.Num() > 10)
     {
         SaveGameRef->Leaderboard.SetNum(10);
+    }
+}
+
+void UBUGameInstance::CanHighScore(bool& CanHighScore) const
+{
+    CanHighScore = false;
+    
+    ABU_GameMode* CurrentGM = Cast<ABU_GameMode>(GetWorld()->GetAuthGameMode());
+    float NewScore = CurrentGM->Score;
+
+    if (SaveGameRef->Leaderboard.Num() < 10)
+    {
+        CanHighScore = true;
+        return;
+    }
+    else
+    {
+        const FLeaderboardEntry_Struct& TenthEntry = SaveGameRef->Leaderboard[9];
+
+        CanHighScore = NewScore > TenthEntry.Score;
     }
 }
 
