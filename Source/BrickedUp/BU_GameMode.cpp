@@ -4,6 +4,7 @@
 #include "BU_GameMode.h"
 #include "Kismet/GameplayStatics.h"
 #include "Ball.h"
+#include "AbilityDrop.h"
 
 void ABU_GameMode::CheckBallCount(int32& BallCount)
 {
@@ -17,5 +18,18 @@ void ABU_GameMode::AddScore(float ScoreToAdd)
 {
     this->Score += ScoreToAdd;
     ScoreChanged.Broadcast();
+}
+
+void ABU_GameMode::GetDrop(TSubclassOf<AAbilityDrop>& Drop, bool& ShouldDrop)
+{
+    //Calculate Drop Chance
+    float RandomValue = FMath::RandRange(0.0f, 100.0f);
+    ShouldDrop = (RandomValue <= DropChance);
+
+    if (ShouldDrop)
+    {
+        int32 RandomIndex = FMath::RandRange(0, DropList.Num() - 1);
+        Drop = DropList[RandomIndex];
+    }
 }
 

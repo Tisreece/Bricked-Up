@@ -8,6 +8,8 @@
 
 #include "BrickMaster.generated.h"
 
+class AAbilityDrop;
+
 UCLASS()
 class BRICKEDUP_API ABrickMaster : public AActor, public IInterface_KillZone
 {
@@ -35,7 +37,10 @@ public:
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Hit") 
 		void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
 	UFUNCTION(BlueprintCallable, Category="Scoring") void AddScore(float ScoreToAdd, float& NewScore);
+
+	UFUNCTION(BlueprintCallable, Category="Drop") void DropAbility(TSubclassOf<AAbilityDrop> Drop);
 	
 	//Events
 	UFUNCTION(BlueprintImplementableEvent, Category="Hit") void HitEffect();

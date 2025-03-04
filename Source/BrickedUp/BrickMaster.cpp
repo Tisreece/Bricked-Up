@@ -6,6 +6,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Ball.h"
 #include "BU_GameMode.h"
+#include "AbilityDrop.h"
 
 #include "Interface_KillZone.h"
 
@@ -62,6 +63,20 @@ void ABrickMaster::AddScore(float ScoreToAdd, float& NewScore)
 	}
 }
 
+void ABrickMaster::DropAbility(TSubclassOf<AAbilityDrop> Drop)
+{
+	if (Drop)
+	{
+		FVector SpawnLocation = GetActorLocation();
+		SpawnLocation.X = 20.0f;
+		FRotator SpawnRotation = GetActorRotation();
+
+		FActorSpawnParameters SpawnParams;
+		GetWorld()->SpawnActor<AAbilityDrop>(Drop, SpawnLocation, SpawnRotation, SpawnParams);
+	}
+}
+
+//Interface
 void ABrickMaster::HitKillZone_Implementation()
 {
 
