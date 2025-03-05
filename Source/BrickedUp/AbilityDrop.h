@@ -4,11 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Interface_KillZone.h"
 
 #include "AbilityDrop.generated.h"
 
 UCLASS()
-class BRICKEDUP_API AAbilityDrop : public AActor
+class BRICKEDUP_API AAbilityDrop : public AActor,
+public IInterface_KillZone
 {
 	GENERATED_BODY()
 	
@@ -26,5 +28,15 @@ public:
 
 	//Components
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Component") class UStaticMeshComponent* DropMesh;
+
+	//Variables
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") float Speed = 50.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") FVector Velocity = FVector(0.0f, 0.0f, -1.0f);
+
+	//Functions
+	UFUNCTION(BlueprintCallable, Category="Movement") void ApplyPhysics(float DeltaTime);
+
+	//Interface
+	virtual void HitKillZone_Implementation() override;
 
 };

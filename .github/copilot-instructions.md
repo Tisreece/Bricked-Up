@@ -1,0 +1,1 @@
+Keep answers short and code snippets limited to the tops of the file such as the #include as well as the function, variable or other section of the code being disucssed.

@@ -66,6 +66,7 @@ void ABall::ReflectMovement(bool HitPlayer, FVector HitNormal, FVector PaddleVel
 	}
 }
 
+//Interfaces
 void ABall::HitKillZone_Implementation()
 {
 

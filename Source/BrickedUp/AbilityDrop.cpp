@@ -4,6 +4,8 @@
 #include "AbilityDrop.h"
 #include "Components/StaticMeshComponent.h"
 
+#include "Interface_KillZone.h"
+
 // Sets default values
 AAbilityDrop::AAbilityDrop()
 {
@@ -14,20 +16,32 @@ AAbilityDrop::AAbilityDrop()
 	DropMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Drop Mesh"));
 	RootComponent = DropMesh;
 	DropMesh->SetCollisionProfileName(TEXT("OverlapAllDynamic"));
-
 }
 
 // Called when the game starts or when spawned
 void AAbilityDrop::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
 void AAbilityDrop::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	ApplyPhysics(DeltaTime);
+}
+
+void AAbilityDrop::ApplyPhysics(float DeltaTime)
+{
+	Velocity = Velocity.GetSafeNormal() * Speed;
+	
+	AddActorWorldOffset(Velocity * DeltaTime, true);
+}
+
+//Interfaces
+void AAbilityDrop::HitKillZone_Implementation()
+{
 
 }
 
