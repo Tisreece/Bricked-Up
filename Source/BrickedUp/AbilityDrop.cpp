@@ -3,6 +3,7 @@
 
 #include "AbilityDrop.h"
 #include "Components/StaticMeshComponent.h"
+#include "PlayerPaddle.h"
 
 #include "Interface_KillZone.h"
 
@@ -37,6 +38,18 @@ void AAbilityDrop::ApplyPhysics(float DeltaTime)
 	Velocity = Velocity.GetSafeNormal() * Speed;
 	
 	AddActorWorldOffset(Velocity * DeltaTime, true);
+}
+
+void AAbilityDrop::HitPlayer(APlayerPaddle* PlayerPaddle)
+{
+	if (InstantEffect)
+	{
+		TriggerInstantAbility(PlayerPaddle);
+	}
+	else
+	{
+
+	}
 }
 
 //Interfaces
