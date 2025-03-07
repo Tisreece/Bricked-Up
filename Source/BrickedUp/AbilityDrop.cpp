@@ -17,6 +17,8 @@ AAbilityDrop::AAbilityDrop()
 	DropMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Drop Mesh"));
 	RootComponent = DropMesh;
 	DropMesh->SetCollisionProfileName(TEXT("OverlapAllDynamic"));
+	
+	OnActorBeginOverlap.AddDynamic(this, &AAbilityDrop::OnOverlapBegin);
 }
 
 // Called when the game starts or when spawned
@@ -33,6 +35,15 @@ void AAbilityDrop::Tick(float DeltaTime)
 	ApplyPhysics(DeltaTime);
 }
 
+void AAbilityDrop::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
+{
+	APlayerPaddle* PlayerPaddle = Cast<APlayerPaddle>(OtherActor);
+	if (PlayerPaddle)
+	{
+		HitPlayer(PlayerPaddle);
+	}
+}
+
 void AAbilityDrop::ApplyPhysics(float DeltaTime)
 {
 	Velocity = Velocity.GetSafeNormal() * Speed;
@@ -44,11 +55,18 @@ void AAbilityDrop::HitPlayer(APlayerPaddle* PlayerPaddle)
 {
 	if (InstantEffect)
 	{
-		TriggerInstantAbility(PlayerPaddle);
+		if (AppliesComponent)
+		{
+			//Apply Component
+		}
+		else
+		{
+			TriggerInstantAbility(PlayerPaddle);
+		}
 	}
 	else
 	{
-
+		//Store Ability
 	}
 }
 

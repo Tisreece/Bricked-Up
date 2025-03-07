@@ -28,6 +28,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION() void OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor);
+
 	//Components
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Component") class UStaticMeshComponent* DropMesh;
 
@@ -36,6 +38,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") FVector Velocity = FVector(0.0f, 0.0f, -1.0f);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Type") bool InstantEffect = true;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Type") bool AppliesComponent = false;
 
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Movement") void ApplyPhysics(float DeltaTime);
