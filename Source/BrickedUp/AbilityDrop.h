@@ -9,6 +9,7 @@
 #include "AbilityDrop.generated.h"
 
 class APlayerPaddle;
+class UAbilityComponentMaster;
 
 UCLASS()
 class BRICKEDUP_API AAbilityDrop : public AActor,
@@ -39,6 +40,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Type") bool InstantEffect = true;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Type") bool AppliesComponent = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Type") TSubclassOf<UAbilityComponentMaster> AbilityComponentToApply;
 
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Movement") void ApplyPhysics(float DeltaTime);

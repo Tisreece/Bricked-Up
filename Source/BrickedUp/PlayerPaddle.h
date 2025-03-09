@@ -7,6 +7,8 @@
 
 #include "PlayerPaddle.generated.h"
 
+class UAbilityComponentMaster;
+
 UCLASS()
 class BRICKEDUP_API APlayerPaddle : public APawn
 {
@@ -45,6 +47,8 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Scoring") float PreviousCheckpoint;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Scoring") float NextCheckpoint;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Scoring") float CheckpointScore = 25.0f;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Ability") TSubclassOf<UAbilityComponentMaster> StoredAbility;
 	
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Input") void SetPlayerController();
@@ -57,6 +61,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Scoring") void CheckNextCheckpoint(ABU_GameMode* GameMode, bool& CheckpointReached);
 	UFUNCTION(BlueprintCallable, Category="Scoring") void SetNextCheckpoint(ABU_GameMode* GameMode);
 	UFUNCTION(BlueprintCallable, Category="Scoring") void AddScore(float ScoreToAdd, float& NewScore);
+
+	UFUNCTION(BlueprintCallable, Category="Ability") void ApplyAbility(AActor* OtherActor);
 
 private: 
 

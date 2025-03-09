@@ -5,6 +5,8 @@
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "BU_GameMode.h"
+#include "Ball.h"
+#include "AbilityComponentMaster.h"
 
 #include "BU_PlayerController.h"
 
@@ -136,5 +138,20 @@ void APlayerPaddle::SetSprint(bool Sprint)
 	else
 	{
 		AscendSpeed = AscendSpeedDefault;
+	}
+}
+
+void APlayerPaddle::ApplyAbility(AActor* OtherActor)
+{
+	ABall* Ball = Cast<ABall>(OtherActor);
+	if (Ball)
+	{
+		UAbilityComponentMaster* AbilityComponent = NewObject<UAbilityComponentMaster>(Ball, StoredAbility);
+		AbilityComponent->RegisterComponent();
+		AbilityComponent->SetComponentTickEnabled(true);
+		AbilityComponent->Rename(*StoredAbility->GetName());
+		Ball->AddInstanceComponent(AbilityComponent);
+
+		StoredAbility = nullptr;
 	}
 }

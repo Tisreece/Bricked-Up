@@ -57,7 +57,7 @@ void AAbilityDrop::HitPlayer(APlayerPaddle* PlayerPaddle)
 	{
 		if (AppliesComponent)
 		{
-			//Apply Component
+			//Applies Component to Player
 		}
 		else
 		{
@@ -66,7 +66,9 @@ void AAbilityDrop::HitPlayer(APlayerPaddle* PlayerPaddle)
 	}
 	else
 	{
-		//Store Ability
+		//For Stored Ability
+		PlayerPaddle->StoredAbility = AbilityComponentToApply;
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Ability Stored"));
 	}
 }
 
