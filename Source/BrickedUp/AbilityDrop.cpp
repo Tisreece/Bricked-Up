@@ -68,7 +68,8 @@ void AAbilityDrop::HitPlayer(APlayerPaddle* PlayerPaddle)
 	{
 		//For Stored Ability
 		PlayerPaddle->StoredAbility = AbilityComponentToApply;
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Ability Stored"));
+		PlayerPaddle->AbilityLevelUp = AbilityLevelUp;
+		Destroy();
 	}
 }
 

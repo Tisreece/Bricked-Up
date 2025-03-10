@@ -38,9 +38,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") float Speed = 50.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") FVector Velocity = FVector(0.0f, 0.0f, -1.0f);
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Type") bool InstantEffect = true;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Type") bool AppliesComponent = false;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Type") TSubclassOf<UAbilityComponentMaster> AbilityComponentToApply;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability") bool InstantEffect = true;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability") bool AppliesComponent = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Stats") bool AbilityLevelUp = true;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability") TSubclassOf<UAbilityComponentMaster> AbilityComponentToApply;
 
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Movement") void ApplyPhysics(float DeltaTime);

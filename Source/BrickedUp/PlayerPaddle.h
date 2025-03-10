@@ -49,6 +49,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Scoring") float CheckpointScore = 25.0f;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Ability") TSubclassOf<UAbilityComponentMaster> StoredAbility;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Ability") bool AbilityLevelUp = true;
 	
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Input") void SetPlayerController();
@@ -63,6 +64,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Scoring") void AddScore(float ScoreToAdd, float& NewScore);
 
 	UFUNCTION(BlueprintCallable, Category="Ability") void ApplyAbility(AActor* OtherActor);
+	UFUNCTION(BlueprintCallable, Category="Ability") void ExpendAbility();
 
 private: 
 

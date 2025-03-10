@@ -9,4 +9,9 @@ UCLASS()
 class BRICKEDUP_API UAbilityComponentBallSize : public UAbilityComponentMaster
 {
     GENERATED_BODY()
+
+public:
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability|Stats") TMap<int32, FVector> BallSizeLevels; 
+
 };

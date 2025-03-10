@@ -21,9 +21,11 @@ public:
     //Variables    
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability|Stats") int Level = 0;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability|Stats") int MaxLevel = 5;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability|Stats") FName Name = "Default Name";
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability|Stats") int StartingLevel = 1;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability") FName Name = "Default Name";
 
     //Events
     UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Ability|Trigger") void TriggerEffect();
+    UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Ability|Trigger") void ChangeLevel(int NewLevel);
 
 };

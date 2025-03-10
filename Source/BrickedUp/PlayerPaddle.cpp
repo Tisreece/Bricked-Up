@@ -146,12 +146,50 @@ void APlayerPaddle::ApplyAbility(AActor* OtherActor)
 	ABall* Ball = Cast<ABall>(OtherActor);
 	if (Ball)
 	{
-		UAbilityComponentMaster* AbilityComponent = NewObject<UAbilityComponentMaster>(Ball, StoredAbility);
-		AbilityComponent->RegisterComponent();
-		AbilityComponent->SetComponentTickEnabled(true);
-		AbilityComponent->Rename(*StoredAbility->GetName());
-		Ball->AddInstanceComponent(AbilityComponent);
+		UAbilityComponentMaster* FoundComponent = nullptr;
 
-		StoredAbility = nullptr;
+		for (UActorComponent* Component : Ball->GetComponents())
+		{
+			if (Component->IsA(StoredAbility))
+			{
+				FoundComponent = Cast<UAbilityComponentMaster>(Component);
+				break;
+			}
+		}
+
+		if (FoundComponent)
+		{
+			float NewLevel = 0;
+			bool CanChangeLevel = false;
+			
+			if (AbilityLevelUp)
+			{
+				NewLevel = FoundComponent->Level +1;
+				CanChangeLevel = NewLevel <= FoundComponent->MaxLevel;
+			}
+			else
+			{
+				NewLevel = FoundComponent->Level - 1;
+				CanChangeLevel = NewLevel >= 1;
+			}
+			if (CanChangeLevel)
+			{
+				FoundComponent->ChangeLevel(NewLevel);
+			}
+		}
+		else
+		{
+			UAbilityComponentMaster* AbilityComponent = NewObject<UAbilityComponentMaster>(Ball, StoredAbility);
+			AbilityComponent->RegisterComponent();
+			AbilityComponent->SetComponentTickEnabled(true);
+			AbilityComponent->Rename(*StoredAbility->GetName());
+			Ball->AddInstanceComponent(AbilityComponent);
+		}
+		
 	}
+}
+
+void APlayerPaddle::ExpendAbility()
+{
+	StoredAbility = nullptr;
 }
