@@ -40,12 +40,16 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability") bool InstantEffect = true;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability") bool AppliesComponent = false;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Stats") bool AbilityLevelUp = true;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability", meta = (ToolTip = "Determines whether or not this ability can level up and down")) 
+		bool CanLevelUp = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Stats", meta = (ToolTip = "Whether or not the drop triggers a level up or down")) 
+		bool AbilityLevelUp = true;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability") TSubclassOf<UAbilityComponentMaster> AbilityComponentToApply;
 
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Movement") void ApplyPhysics(float DeltaTime);
 	UFUNCTION(BlueprintCallable, Category="Ability") void HitPlayer(APlayerPaddle* PlayerPaddle);
+	UFUNCTION(BlueprintCallable, Category="Ability|Stats") void SetRandomStats();
 
 	//Events
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="Ability") void TriggerInstantAbility(APlayerPaddle* PlayerPaddle);

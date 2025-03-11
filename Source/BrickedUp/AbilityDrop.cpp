@@ -25,6 +25,8 @@ AAbilityDrop::AAbilityDrop()
 void AAbilityDrop::BeginPlay()
 {
 	Super::BeginPlay();
+
+	SetRandomStats();
 }
 
 // Called every frame
@@ -68,8 +70,23 @@ void AAbilityDrop::HitPlayer(APlayerPaddle* PlayerPaddle)
 	{
 		//For Stored Ability
 		PlayerPaddle->StoredAbility = AbilityComponentToApply;
-		PlayerPaddle->AbilityLevelUp = AbilityLevelUp;
+		if(CanLevelUp)
+		{
+			PlayerPaddle->AbilityLevelUp = AbilityLevelUp;
+		}
+		else
+		{
+			PlayerPaddle->AbilityLevelUp = true;
+		}
 		Destroy();
+	}
+}
+
+void AAbilityDrop::SetRandomStats()
+{
+	if(CanLevelUp)
+	{
+		AbilityLevelUp = FMath::RandBool();
 	}
 }
 

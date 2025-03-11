@@ -164,7 +164,7 @@ void APlayerPaddle::ApplyAbility(AActor* OtherActor)
 			
 			if (AbilityLevelUp)
 			{
-				NewLevel = FoundComponent->Level +1;
+				NewLevel = FoundComponent->Level + 1;
 				CanChangeLevel = NewLevel <= FoundComponent->MaxLevel;
 			}
 			else
@@ -195,7 +195,7 @@ void APlayerPaddle::ApplyAbility(AActor* OtherActor)
 				}
 				AbilityComponent->StartingLevel = NewLevel;
 			}
-			
+
 			AbilityComponent->RegisterComponent();
 			AbilityComponent->SetComponentTickEnabled(true);
 			AbilityComponent->Rename(*StoredAbility->GetName());
