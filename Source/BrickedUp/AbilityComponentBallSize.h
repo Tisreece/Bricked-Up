@@ -14,4 +14,6 @@ public:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability|Stats") TMap<int32, FVector> BallSizeLevels; 
 
+    UFUNCTION(BlueprintCallable, Category = "Ability") void SetBallSize(int32 NewLevel);
+
 };

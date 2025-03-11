@@ -175,15 +175,33 @@ void APlayerPaddle::ApplyAbility(AActor* OtherActor)
 			if (CanChangeLevel)
 			{
 				FoundComponent->ChangeLevel(NewLevel);
+				ExpendAbility();
 			}
 		}
 		else
 		{
 			UAbilityComponentMaster* AbilityComponent = NewObject<UAbilityComponentMaster>(Ball, StoredAbility);
+
+			if(AbilityComponent->RequiresStartingLevelOverride)
+			{
+				int NewLevel = 0;
+				if (AbilityLevelUp)
+				{
+					NewLevel= AbilityComponent->StartingLevel + 1;
+				}
+				else
+				{
+					NewLevel = AbilityComponent->StartingLevel - 1;
+				}
+				AbilityComponent->StartingLevel = NewLevel;
+			}
+			
 			AbilityComponent->RegisterComponent();
 			AbilityComponent->SetComponentTickEnabled(true);
 			AbilityComponent->Rename(*StoredAbility->GetName());
 			Ball->AddInstanceComponent(AbilityComponent);
+
+			ExpendAbility();
 		}
 		
 	}

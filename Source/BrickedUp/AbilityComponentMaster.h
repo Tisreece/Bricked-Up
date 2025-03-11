@@ -23,6 +23,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability|Stats") int MaxLevel = 5;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability|Stats") int StartingLevel = 1;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability") FName Name = "Default Name";
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability") bool RequiresStartingLevelOverride = false;
 
     //Events
     UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Ability|Trigger") void TriggerEffect();
