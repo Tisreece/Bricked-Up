@@ -68,7 +68,7 @@ void ABrickMaster::DropAbility(TSubclassOf<AAbilityDrop> Drop)
 	if (Drop)
 	{
 		FVector SpawnLocation = GetActorLocation();
-		SpawnLocation.X = 20.0f;
+		SpawnLocation.X = 35.0f;
 		FRotator SpawnRotation = GetActorRotation();
 
 		FActorSpawnParameters SpawnParams;
