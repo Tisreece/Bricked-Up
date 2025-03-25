@@ -17,6 +17,15 @@ AAbilityDrop::AAbilityDrop()
 	DropMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Drop Mesh"));
 	RootComponent = DropMesh;
 	DropMesh->SetCollisionProfileName(TEXT("OverlapAllDynamic"));
+
+	ImagePlane = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Image Plane"));
+	ImagePlane->SetupAttachment(DropMesh);
+	ImagePlane->SetCollisionProfileName(TEXT("NoCollision"));
+	ImagePlane->SetRelativeRotation(FRotator(0.0f, 0.0f, 90.0f));
+	ImagePlane->SetRelativeLocation(FVector(0.0f, 2.0f, 0.0f));
+	ImagePlane->SetRelativeScale3D(FVector(0.05f, 0.05f, 0.05f));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> ImagePlaneFinder(TEXT("/Engine/BasicShapes/Plane"));
+	if (ImagePlaneFinder.Succeeded()) ImagePlane->SetStaticMesh(ImagePlaneFinder.Object);
 	
 	OnActorBeginOverlap.AddDynamic(this, &AAbilityDrop::OnOverlapBegin);
 
