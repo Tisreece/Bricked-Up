@@ -19,6 +19,23 @@ AAbilityDrop::AAbilityDrop()
 	DropMesh->SetCollisionProfileName(TEXT("OverlapAllDynamic"));
 	
 	OnActorBeginOverlap.AddDynamic(this, &AAbilityDrop::OnOverlapBegin);
+
+	//Set Material Defaults
+	static ConstructorHelpers::FObjectFinder<UMaterialInterface> UpgradeMatFinder(TEXT("/Game/Abilities/Drops/AbilityDropUpgrade_Mat"));
+	if(UpgradeMatFinder.Succeeded())
+	{
+		UpgradeMaterial = UpgradeMatFinder.Object;
+	}
+	static ConstructorHelpers::FObjectFinder<UMaterialInterface> DowngradeMatFinder(TEXT("/Game/Abilities/Drops/AbilityDropDowngrade_Mat"));
+	if(DowngradeMatFinder.Succeeded())
+	{
+		DowngradeMaterial = DowngradeMatFinder.Object;
+	}
+	static ConstructorHelpers::FObjectFinder<UMaterialInterface> NeutralMatFinder(TEXT("/Game/Abilities/Drops/AbilityDropNeutral_Mat"));
+	if(NeutralMatFinder.Succeeded())
+	{
+		NeutralMaterial = NeutralMatFinder.Object;
+	}
 }
 
 // Called when the game starts or when spawned
@@ -27,6 +44,7 @@ void AAbilityDrop::BeginPlay()
 	Super::BeginPlay();
 
 	SetRandomStats();
+	SetMaterial();
 }
 
 // Called every frame
@@ -87,6 +105,24 @@ void AAbilityDrop::SetRandomStats()
 	if(CanLevelUp)
 	{
 		AbilityLevelUp = FMath::RandBool();
+	}
+}
+
+void AAbilityDrop::SetMaterial()
+{
+	if(AbilityLevelUp)
+	{
+		if(UpgradeMaterial)
+		{
+			DropMesh->SetMaterial(0, UpgradeMaterial);
+		}
+	}
+	else
+	{
+		if(DowngradeMaterial)
+		{
+			DropMesh->SetMaterial(0, DowngradeMaterial);
+		}
 	}
 }
 

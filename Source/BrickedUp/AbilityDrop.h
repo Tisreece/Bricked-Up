@@ -46,10 +46,15 @@ public:
 		bool AbilityLevelUp = true;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability") TSubclassOf<UAbilityComponentMaster> AbilityComponentToApply;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Mesh") UMaterialInterface* UpgradeMaterial;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Mesh") UMaterialInterface* DowngradeMaterial;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Mesh") UMaterialInterface* NeutralMaterial;
+
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Movement") void ApplyPhysics(float DeltaTime);
 	UFUNCTION(BlueprintCallable, Category="Ability") void HitPlayer(APlayerPaddle* PlayerPaddle);
 	UFUNCTION(BlueprintCallable, Category="Ability|Stats") void SetRandomStats();
+	UFUNCTION(BlueprintCallable, Category="Mesh") void SetMaterial();
 
 	//Events
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="Ability") void TriggerInstantAbility(APlayerPaddle* PlayerPaddle);
