@@ -198,7 +198,6 @@ void APlayerPaddle::ApplyAbility(AActor* OtherActor)
 
 			AbilityComponent->RegisterComponent();
 			AbilityComponent->SetComponentTickEnabled(true);
-			AbilityComponent->Rename(*StoredAbility->GetName());
 			Ball->AddInstanceComponent(AbilityComponent);
 
 			ExpendAbility();

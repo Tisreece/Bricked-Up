@@ -17,6 +17,8 @@ AAbilityDrop::AAbilityDrop()
 	DropMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Drop Mesh"));
 	RootComponent = DropMesh;
 	DropMesh->SetCollisionProfileName(TEXT("OverlapAllDynamic"));
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> DropMeshFinder(TEXT("/Game/Abilities/Drops/AbilityDrop"));
+	if (DropMeshFinder.Succeeded()) DropMesh->SetStaticMesh(DropMeshFinder.Object);
 
 	ImagePlane = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Image Plane"));
 	ImagePlane->SetupAttachment(DropMesh);
