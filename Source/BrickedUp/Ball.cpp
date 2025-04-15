@@ -4,6 +4,8 @@
 #include "Ball.h"
 #include "Components/SphereComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "PlayerPaddle.h"
+#include "Components/BoxComponent.h"
 
 #include "Interface_KillZone.h"
 
@@ -27,7 +29,10 @@ ABall::ABall()
 void ABall::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	if (ShouldStartAttached && PlayerPaddle)
+	{
+		AttachToPaddle(PlayerPaddle);
+	}
 }
 
 // Called every frame
@@ -35,8 +40,10 @@ void ABall::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	ApplyPhysics(DeltaTime);
-
+	if (!IsAttached)
+	{
+		ApplyPhysics(DeltaTime);
+	}
 }
 
 void ABall::ApplyPhysics(float DeltaTime)
@@ -63,6 +70,25 @@ void ABall::ReflectMovement(bool HitPlayer, FVector HitNormal, FVector PaddleVel
 	else
 	{
 		Velocity = Velocity.MirrorByVector(HitNormal);
+	}
+}
+
+void ABall::AttachToPaddle(APlayerPaddle* Paddle)
+{
+	if (Paddle)
+	{
+		//AttachToActor(Paddle, FAttachmentTransformRules::KeepRelativeTransform);
+		AttachToComponent(Paddle->PaddleCollision, FAttachmentTransformRules::KeepWorldTransform);
+		IsAttached = true;
+	}
+}
+
+void ABall::DetachFromPaddle(APlayerPaddle* Paddle)
+{
+	if (Paddle)
+	{
+		DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+		IsAttached = false;
 	}
 }
 

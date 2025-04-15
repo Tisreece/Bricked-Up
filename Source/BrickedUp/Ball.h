@@ -8,6 +8,8 @@
 
 #include "Ball.generated.h"
 
+class APlayerPaddle;
+
 UCLASS()
 class BRICKEDUP_API ABall : public AActor, public IInterface_KillZone
 {
@@ -31,15 +33,22 @@ public:
 
 	//Variables
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") float Speed = 200.0f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") FVector Velocity = FVector(0.0f, 0.0f, -1.0f);
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") FVector Velocity = FVector(0.0f, 0.0f, 1.0f);
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") float PlayerImpactOffset = 2.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") float PlayerVelocityBoost = 10.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") bool CanHitPlayer = true;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") float MomentumInfluenceFactor = 0.5f;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Attach") APlayerPaddle* PlayerPaddle;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Attach") bool IsAttached = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Attach") bool ShouldStartAttached = false;
+
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Movement") void ApplyPhysics(float DeltaTime);
 	UFUNCTION(BlueprintCallable, Category="Movement") void ReflectMovement(bool HitPlayer, FVector HitNormal, FVector PaddleVelocity);
+
+	UFUNCTION(BlueprintCallable, Category="Attach") void AttachToPaddle(APlayerPaddle* Paddle);
+	UFUNCTION(BlueprintCallable, Category="Attach") void DetachFromPaddle(APlayerPaddle* Paddle);
 
 	//Interface
 	virtual void HitKillZone_Implementation() override;
