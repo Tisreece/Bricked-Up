@@ -92,9 +92,17 @@ void APlayerPaddle::MovePaddle(float X)
 
 void APlayerPaddle::AscendPaddle()
 {
-	FVector Movement(0.0f, 0.0f, AscendSpeed * GetWorld()->GetDeltaSeconds());
+	ABU_GameMode* GameMode = Cast<ABU_GameMode>(GetWorld()->GetAuthGameMode());
 
-	AddActorWorldOffset(Movement, true);
+	if (GameMode)
+	{
+		if (!GameMode->GameStart)
+		{
+			FVector Movement(0.0f, 0.0f, AscendSpeed * GetWorld()->GetDeltaSeconds());
+
+			AddActorWorldOffset(Movement, true);
+		}
+	}
 }
 
 void APlayerPaddle::SetInitialCheckpoint()

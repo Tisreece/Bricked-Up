@@ -22,6 +22,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Scoring") float Score = 0.0f;
 	UPROPERTY(BlueprintAssignable, Category="Scoring") FScoreChanged ScoreChanged;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Scoring") float CheckpointInterval = 10.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Game Start") bool GameStart = true;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Drop") float DropChance = 5.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Drop") TArray<TSubclassOf<AAbilityDrop>> DropList;
