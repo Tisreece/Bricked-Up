@@ -4,10 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "AbilityInformation_Struct.h"
 
 #include "PlayerPaddle.generated.h"
 
 class UAbilityComponentMaster;
+
+//Delegates
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FAbilityChanged);
+
 
 UCLASS()
 class BRICKEDUP_API APlayerPaddle : public APawn
@@ -49,7 +54,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Scoring") float CheckpointScore = 25.0f;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Ability") TSubclassOf<UAbilityComponentMaster> StoredAbility;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Ability") FAbilityInformation_Struct AbilityInformation;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Ability") bool AbilityLevelUp = true;
+
+	//Delegates
+	UPROPERTY(BlueprintAssignable, Category="Ability") FAbilityChanged AbilityChanged;
 	
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Input") void SetPlayerController();

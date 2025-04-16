@@ -217,4 +217,6 @@ void APlayerPaddle::ApplyAbility(AActor* OtherActor)
 void APlayerPaddle::ExpendAbility()
 {
 	StoredAbility = nullptr;
+	AbilityInformation = FAbilityInformation_Struct();
+	AbilityChanged.Broadcast();
 }

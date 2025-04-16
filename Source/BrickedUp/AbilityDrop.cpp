@@ -99,6 +99,7 @@ void AAbilityDrop::HitPlayer(APlayerPaddle* PlayerPaddle)
 	{
 		//For Stored Ability
 		PlayerPaddle->StoredAbility = AbilityComponentToApply;
+		PlayerPaddle->AbilityInformation = AbilityInformation;
 		if(CanLevelUp)
 		{
 			PlayerPaddle->AbilityLevelUp = AbilityLevelUp;
@@ -107,6 +108,7 @@ void AAbilityDrop::HitPlayer(APlayerPaddle* PlayerPaddle)
 		{
 			PlayerPaddle->AbilityLevelUp = true;
 		}
+		PlayerPaddle->AbilityChanged.Broadcast();
 		Destroy();
 	}
 }
