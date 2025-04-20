@@ -4,6 +4,7 @@
 #include "AbilityDrop.h"
 #include "Components/StaticMeshComponent.h"
 #include "PlayerPaddle.h"
+#include "AbilityComponentMaster.h"
 
 #include "Interface_KillZone.h"
 
@@ -88,7 +89,7 @@ void AAbilityDrop::HitPlayer(APlayerPaddle* PlayerPaddle)
 	{
 		if (AppliesComponent)
 		{
-			//Applies Component to Player
+			ApplyInstantComponent(PlayerPaddle);
 		}
 		else
 		{
@@ -139,9 +140,73 @@ void AAbilityDrop::SetMaterial()
 	}
 }
 
+void AAbilityDrop::ApplyInstantComponent(APlayerPaddle* PlayerPaddle)
+{
+	UAbilityComponentMaster* FoundComponent = nullptr;
+
+	for (UActorComponent* Component : PlayerPaddle->GetComponents())
+	{
+		if (Component->IsA(AbilityComponentToApply))
+		{
+			FoundComponent = Cast<UAbilityComponentMaster>(Component);
+			break;
+		}
+	}
+
+	if (FoundComponent)
+	{
+		float NewLevel = 0;
+		bool CanChangeLevel = false;
+
+		if (AbilityLevelUp)
+		{
+			NewLevel = FoundComponent->Level + 1;
+			CanChangeLevel = NewLevel <= FoundComponent->MaxLevel;
+		}
+		else
+		{
+			NewLevel = FoundComponent->Level - 1;
+			CanChangeLevel = NewLevel >= 1;
+		}
+		if (CanChangeLevel)
+		{
+			FoundComponent->ChangeLevel(NewLevel);
+		}
+	}
+	else 
+	{
+		UAbilityComponentMaster* AbilityComponent = NewObject<UAbilityComponentMaster>(PlayerPaddle, AbilityComponentToApply);
+
+		if(AbilityComponent->RequiresStartingLevelOverride)
+		{
+			int NewLevel = 0;
+			if (AbilityLevelUp)
+			{
+				NewLevel= AbilityComponent->StartingLevel + 1;
+			}
+			else
+			{
+				NewLevel = AbilityComponent->StartingLevel - 1;
+			}
+			AbilityComponent->StartingLevel = NewLevel;
+		}
+
+		AbilityComponent->RegisterComponent();
+		AbilityComponent->SetComponentTickEnabled(true);
+		PlayerPaddle->AddInstanceComponent(AbilityComponent);
+	}
+
+	DestroyDrop();
+}
+
+void AAbilityDrop::DestroyDrop_Implementation()
+{
+	Destroy();
+}
+
 //Interfaces
 void AAbilityDrop::HitKillZone_Implementation()
 {
-
+	DestroyDrop();
 }
 

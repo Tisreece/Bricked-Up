@@ -59,9 +59,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Ability") void HitPlayer(APlayerPaddle* PlayerPaddle);
 	UFUNCTION(BlueprintCallable, Category="Ability|Stats") void SetRandomStats();
 	UFUNCTION(BlueprintCallable, Category="Mesh") void SetMaterial();
+	UFUNCTION(BlueprintCallable, Category="Ability") void ApplyInstantComponent(APlayerPaddle* PlayerPaddle);
 
 	//Events
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="Ability") void TriggerInstantAbility(APlayerPaddle* PlayerPaddle);
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category="Kill") void DestroyDrop();
+	virtual void DestroyDrop_Implementation();
 
 	//Interface
 	virtual void HitKillZone_Implementation() override;
