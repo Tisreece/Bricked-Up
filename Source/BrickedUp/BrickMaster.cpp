@@ -34,6 +34,7 @@ ABrickMaster::ABrickMaster()
 void ABrickMaster::BeginPlay()
 {
 	Super::BeginPlay();
+	Health = MaxHealth;
 	
 }
 
@@ -74,6 +75,39 @@ void ABrickMaster::DropAbility(TSubclassOf<AAbilityDrop> Drop)
 
 		FActorSpawnParameters SpawnParams;
 		GetWorld()->SpawnActor<AAbilityDrop>(Drop, SpawnTransform, SpawnParams);
+	}
+}
+
+void ABrickMaster::DestroyBrick()
+{
+	float NewValue = 0.0f;
+	TSubclassOf<AAbilityDrop> DropClass;
+	bool ShouldDrop = false;
+	
+	AddScore(Value, NewValue);
+
+	ABU_GameMode* GameMode = Cast<ABU_GameMode>(GetWorld()->GetAuthGameMode());
+	if (GameMode)
+	{
+		GameMode->GetDrop(DropClass, ShouldDrop);
+		if (ShouldDrop)
+		{
+			DropAbility(DropClass);
+		}
+	}
+
+	Destroy();
+}
+
+void ABrickMaster::TakeHealth()
+{
+	if (MaxHealth > 0)
+	{
+		Health--;
+		if (Health <= 0)
+		{
+			DestroyBrick();
+		}
 	}
 }
 

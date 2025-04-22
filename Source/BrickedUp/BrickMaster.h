@@ -33,10 +33,14 @@ public:
 
 	//Variables
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Scoring") float Value = 10.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health") int MaxHealth = 1;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health") int Health = 1;
 
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Hit") 
 		void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+	UFUNCTION(BlueprintCallable, Category="Hit") void DestroyBrick();
+	UFUNCTION(BlueprintCallable, Category="Hit") void TakeHealth();
 
 	UFUNCTION(BlueprintCallable, Category="Scoring") void AddScore(float ScoreToAdd, float& NewScore);
 
