@@ -7,6 +7,7 @@
 #include "Ball.h"
 #include "BU_GameMode.h"
 #include "AbilityDrop.h"
+#include "PlayerPaddle.h"
 
 #include "Interface_KillZone.h"
 
@@ -28,6 +29,7 @@ ABrickMaster::ABrickMaster()
 
 	//Bind Events
 	BrickCollision->OnComponentHit.AddDynamic(this, &ABrickMaster::OnHit);
+	OnActorBeginOverlap.AddDynamic(this, &ABrickMaster::OnOverlapBegin);
 }
 
 // Called when the game starts or when spawned
@@ -50,6 +52,18 @@ void ABrickMaster::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, 
 	if (OtherActor && OtherActor != this && OtherActor->IsA(ABall::StaticClass()))
 	{
 		HitEffect();
+	}
+}
+
+void ABrickMaster::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
+{
+	if (OtherActor && OtherActor->IsA(APlayerPaddle::StaticClass()))
+	{
+		ABU_GameMode* GameMode = Cast<ABU_GameMode>(GetWorld()->GetAuthGameMode());
+		if (GameMode)
+		{
+			GameMode->BrickHitPlayer();
+		}
 	}
 }
 
@@ -114,6 +128,6 @@ void ABrickMaster::TakeHealth()
 //Interface
 void ABrickMaster::HitKillZone_Implementation()
 {
-
+	Destroy();
 }
 
