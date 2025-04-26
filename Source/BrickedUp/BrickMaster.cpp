@@ -125,6 +125,69 @@ void ABrickMaster::TakeHealth()
 	}
 }
 
+void ABrickMaster::FindNeighbouringBricks(TArray<ABrickMaster*>& NeighbouringBricks)
+{
+	// Set initial parameters for checking to the left
+	FHitResult HitResult;
+	FVector Start = GetActorLocation();
+	FVector End = Start + GetActorForwardVector() * -20.0f; //Forward because the brick is rotated
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(this);
+
+	// Line trace to the Left
+	bool bHit = GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECC_Visibility, Params);
+	//DrawDebugLine(GetWorld(), Start, End, FColor::Red, false, 1.0f, 0, 1.0f);
+	if (bHit)
+	{
+		if (ABrickMaster* HitBrickLeft = Cast<ABrickMaster>(HitResult.GetActor()))
+		{
+			NeighbouringBricks.Add(HitBrickLeft);
+		}
+	}
+
+	// Set params for checking to the right
+	End = Start + GetActorForwardVector() * 20.0f;
+
+	// Line trace to the Right
+	bHit = GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECC_Visibility, Params);
+	//DrawDebugLine(GetWorld(), Start, End, FColor::Red, false, 1.0f, 0, 1.0f);
+	if (bHit)
+	{
+		if (ABrickMaster* HitBrickRight = Cast<ABrickMaster>(HitResult.GetActor()))
+		{
+			NeighbouringBricks.Add(HitBrickRight);
+		}
+	}
+
+	// Set params for checking above
+	End = Start + GetActorUpVector() * 5.0f;
+
+	// Line trace above
+	bHit = GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECC_Visibility, Params);
+	//DrawDebugLine(GetWorld(), Start, End, FColor::Red, false, 1.0f, 0, 1.0f);
+	if (bHit)
+	{
+		if (ABrickMaster* HitBrickAbove = Cast<ABrickMaster>(HitResult.GetActor()))
+		{
+			NeighbouringBricks.Add(HitBrickAbove);
+		}
+	}
+
+	// Set params for checking below
+	End = Start + GetActorUpVector() * -5.0f;
+
+	// Line trace below
+	bHit = GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECC_Visibility, Params);
+	//DrawDebugLine(GetWorld(), Start, End, FColor::Red, false, 1.0f, 0, 1.0f);
+	if (bHit)
+	{
+		if (ABrickMaster* HitBrickBelow = Cast<ABrickMaster>(HitResult.GetActor()))
+		{
+			NeighbouringBricks.Add(HitBrickBelow);
+		}
+	}
+}
+
 //Interface
 void ABrickMaster::HitKillZone_Implementation()
 {

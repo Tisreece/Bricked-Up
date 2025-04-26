@@ -43,10 +43,12 @@ public:
 		void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 	UFUNCTION(BlueprintCallable, Category="Hit") void DestroyBrick();
 	UFUNCTION(BlueprintCallable, Category="Hit") void TakeHealth();
+	UFUNCTION(BlueprintCallable, Category="Hit") void FindNeighbouringBricks(TArray<ABrickMaster*>& NeighbouringBricks);
 
 	UFUNCTION(BlueprintCallable, Category="Scoring") void AddScore(float ScoreToAdd, float& NewScore);
 
 	UFUNCTION(BlueprintCallable, Category="Drop") void DropAbility(TSubclassOf<AAbilityDrop> Drop);
+
 	
 	//Events
 	UFUNCTION(BlueprintImplementableEvent, Category="Hit") void HitEffect();
