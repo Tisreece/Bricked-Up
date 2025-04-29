@@ -28,8 +28,16 @@ void ABU_GameMode::GetDrop(TSubclassOf<AAbilityDrop>& Drop, bool& ShouldDrop)
 
     if (ShouldDrop)
     {
-        int32 RandomIndex = FMath::RandRange(0, DropList.Num() - 1);
-        Drop = DropList[RandomIndex];
+        if (!DebugDrop)
+        {
+            int32 RandomIndex = FMath::RandRange(0, DropList.Num() - 1);
+            Drop = DropList[RandomIndex];
+        }
+        else
+        {
+            int32 RandomIndex = FMath::RandRange(0, DebugDropList.Num() - 1);
+            Drop = DebugDropList[RandomIndex];
+        }
     }
 }
 

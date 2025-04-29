@@ -1,4 +1,5 @@
 #include "AbilityComponentPaddleSize.h"
+#include "Components/BoxComponent.h"
 #include "PlayerPaddle.h"
 
 void UAbilityComponentPaddleSize::SetPaddleSize(int32 NewLevel)
@@ -7,6 +8,6 @@ void UAbilityComponentPaddleSize::SetPaddleSize(int32 NewLevel)
     if (Paddle)
     {
         FVector* NewSize = PaddleSizeLevels.Find(NewLevel);
-        Paddle->SetActorScale3D(*NewSize);
+        Paddle->PaddleCollision->SetWorldScale3D(*NewSize);
     }
 }

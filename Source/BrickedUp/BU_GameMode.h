@@ -26,6 +26,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Drop") float DropChance = 5.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Drop") TArray<TSubclassOf<AAbilityDrop>> DropList;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Drop") bool DebugDrop = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Drop") TArray<TSubclassOf<AAbilityDrop>> DebugDropList;
 
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Lose Condition") void CheckBallCount(int32& BallCount);
