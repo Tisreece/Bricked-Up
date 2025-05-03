@@ -30,8 +30,24 @@ void ABU_GameMode::GetDrop(TSubclassOf<AAbilityDrop>& Drop, bool& ShouldDrop)
     {
         if (!DebugDrop)
         {
-            int32 RandomIndex = FMath::RandRange(0, DropList.Num() - 1);
-            Drop = DropList[RandomIndex];
+            float TotalWeight = 0.0f;
+            for (const auto& Elem : DropList)
+            {
+                TotalWeight += Elem.Value;
+            }
+
+            float RandomWeight = FMath::RandRange(0.0f, TotalWeight);
+            float Cumulative = 0.0f;
+
+            for (const auto& Elem : DropList)
+            {
+                Cumulative += Elem.Value;
+                if (RandomWeight <= Cumulative)
+                {
+                    Drop = Elem.Key;
+                    break;
+                }
+            }
         }
         else
         {
