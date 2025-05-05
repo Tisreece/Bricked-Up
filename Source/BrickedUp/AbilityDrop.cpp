@@ -5,6 +5,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "PlayerPaddle.h"
 #include "AbilityComponentMaster.h"
+#include "BU_GameMode.h"
 
 #include "Interface_KillZone.h"
 
@@ -118,7 +119,14 @@ void AAbilityDrop::SetRandomStats()
 {
 	if(CanLevelUp)
 	{
-		AbilityLevelUp = FMath::RandBool();
+		ABU_GameMode* GameMode = Cast<ABU_GameMode>(GetWorld()->GetAuthGameMode());
+
+		if(GameMode)
+		{
+			bool PositiveDrop = false;
+			GameMode->GetPositiveDropChance(PositiveDrop);
+			AbilityLevelUp = PositiveDrop;
+		}
 	}
 }
 

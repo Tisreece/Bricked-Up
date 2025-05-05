@@ -57,3 +57,11 @@ void ABU_GameMode::GetDrop(TSubclassOf<AAbilityDrop>& Drop, bool& ShouldDrop)
     }
 }
 
+void ABU_GameMode::GetPositiveDropChance(bool& PositiveDrop)
+{
+    float TotalWeight = 0.0f;
+    TotalWeight = PositiveDropChance + NegativeDropChance;
+
+    float RandomValue = FMath::RandRange(0.0f, TotalWeight);
+    PositiveDrop = (RandomValue <= PositiveDropChance);
+}

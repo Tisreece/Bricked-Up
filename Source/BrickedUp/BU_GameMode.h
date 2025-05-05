@@ -24,10 +24,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Scoring") float CheckpointInterval = 10.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Game Start") bool GameStart = true;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Drop") float DropChance = 5.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Drop") TMap<TSubclassOf<AAbilityDrop>, float> DropList;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Drop") bool DebugDrop = false;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Drop") TArray<TSubclassOf<AAbilityDrop>> DebugDropList;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Drop|Chance") float DropChance = 5.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Drop|Chance") float PositiveDropChance = 100.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Drop|Chance") float NegativeDropChance = 10.0f;
 
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Lose Condition") void CheckBallCount(int32& BallCount);
@@ -35,6 +38,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Scoring") void AddScore(float ScoreToAdd);
 
 	UFUNCTION(BlueprintCallable, Category="Drop") void GetDrop(TSubclassOf<AAbilityDrop>& Drop, bool& ShouldDrop);
+	UFUNCTION(BlueprintCallable, Category="Drop") void GetPositiveDropChance(bool& PositiveDrop);
 
 	//Events
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="Lose Condition") void BallDestroyed();
