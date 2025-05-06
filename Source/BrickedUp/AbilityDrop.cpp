@@ -6,6 +6,7 @@
 #include "PlayerPaddle.h"
 #include "AbilityComponentMaster.h"
 #include "BU_GameMode.h"
+#include "AbilityInformation_Struct.h"
 
 #include "Interface_KillZone.h"
 
@@ -58,6 +59,7 @@ void AAbilityDrop::BeginPlay()
 
 	SetRandomStats();
 	SetMaterial();
+	SetAbilityInformation();
 }
 
 // Called every frame
@@ -145,6 +147,18 @@ void AAbilityDrop::SetMaterial()
 		{
 			DropMesh->SetMaterial(0, DowngradeMaterial);
 		}
+	}
+}
+
+void AAbilityDrop::SetAbilityInformation()
+{
+	if(AbilityLevelUp)
+	{
+		AbilityInformation.Name = AbilityName;
+	}
+	else
+	{
+		AbilityInformation.Name = AbilityDowngradeName;
 	}
 }
 

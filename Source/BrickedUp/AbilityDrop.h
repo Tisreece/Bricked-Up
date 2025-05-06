@@ -52,13 +52,19 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Mesh") UMaterialInterface* DowngradeMaterial;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Mesh") UMaterialInterface* NeutralMaterial;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability") FAbilityInformation_Struct AbilityInformation;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Information") FString AbilityName = "Ability Name";
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Information") FString AbilityDowngradeName = "Ability Downgrade Name";
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Information") FAbilityInformation_Struct AbilityInformation;
 
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Movement") void ApplyPhysics(float DeltaTime);
 	UFUNCTION(BlueprintCallable, Category="Ability") void HitPlayer(APlayerPaddle* PlayerPaddle);
+
 	UFUNCTION(BlueprintCallable, Category="Ability|Stats") void SetRandomStats();
 	UFUNCTION(BlueprintCallable, Category="Mesh") void SetMaterial();
+	UFUNCTION(BlueprintCallable, Category="Ability|Information") void SetAbilityInformation();
+
 	UFUNCTION(BlueprintCallable, Category="Ability") void ApplyInstantComponent(APlayerPaddle* PlayerPaddle);
 
 	//Events
