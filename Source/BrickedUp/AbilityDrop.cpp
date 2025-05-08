@@ -155,10 +155,28 @@ void AAbilityDrop::SetAbilityInformation()
 	if(AbilityLevelUp)
 	{
 		AbilityInformation.Name = AbilityName;
+		AbilityInformation.AbilityImage = AbilityImage;
+		if(AbilityPlaneMaterial)
+		{
+			ImagePlane->SetMaterial(0, AbilityPlaneMaterial);
+		}
+		else
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, TEXT("Error: No material set for Ability Plane"));
+		}
 	}
 	else
 	{
 		AbilityInformation.Name = AbilityDowngradeName;
+		AbilityInformation.AbilityImage = AbilityDowngradeImage;
+		if(AbilityPlaneDowngradeMaterial)
+		{
+			ImagePlane->SetMaterial(0, AbilityPlaneDowngradeMaterial);
+		}
+		else
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, TEXT("Error: No material set for Ability Plane Downgrade"));
+		}
 	}
 }
 
