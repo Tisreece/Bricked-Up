@@ -51,6 +51,7 @@ void ABrickMaster::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, 
 {
 	if (OtherActor && OtherActor != this && OtherActor->IsA(ABall::StaticClass()))
 	{
+		BallHit = Cast<ABall>(OtherActor);
 		HitEffect();
 	}
 }
@@ -113,14 +114,19 @@ void ABrickMaster::DestroyBrick()
 	Destroy();
 }
 
-void ABrickMaster::TakeHealth()
+void ABrickMaster::TakeHealth(bool& ToBeDestroyed)
 {
 	if (MaxHealth > 0)
 	{
 		Health--;
 		if (Health <= 0)
 		{
+			ToBeDestroyed = true;
 			DestroyBrick();
+		}
+		else
+		{
+			ToBeDestroyed = false;
 		}
 	}
 }

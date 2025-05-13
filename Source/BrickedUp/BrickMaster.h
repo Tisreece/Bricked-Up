@@ -9,6 +9,7 @@
 #include "BrickMaster.generated.h"
 
 class AAbilityDrop;
+class ABall;
 
 UCLASS()
 class BRICKEDUP_API ABrickMaster : public AActor, public IInterface_KillZone
@@ -38,11 +39,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health") int MaxHealth = 1;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health") int Health = 1;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Audio") USoundBase* DestroyAudio = nullptr;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Audio") ABall* BallHit = nullptr;
+
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Hit") 
 		void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 	UFUNCTION(BlueprintCallable, Category="Hit") void DestroyBrick();
-	UFUNCTION(BlueprintCallable, Category="Hit") void TakeHealth();
+	UFUNCTION(BlueprintCallable, Category="Hit") void TakeHealth(bool& ToBeDestroyed);
 	UFUNCTION(BlueprintCallable, Category="Hit") void FindNeighbouringBricks(TArray<ABrickMaster*>& NeighbouringBricks);
 
 	UFUNCTION(BlueprintCallable, Category="Scoring") void AddScore(float ScoreToAdd, float& NewScore);

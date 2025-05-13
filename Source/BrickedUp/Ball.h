@@ -43,6 +43,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Attach") bool IsAttached = false;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Attach") bool ShouldStartAttached = false;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Audio") USoundBase* HitAudioOverride = nullptr;
+
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Movement") void ApplyPhysics(float DeltaTime);
 	UFUNCTION(BlueprintCallable, Category="Movement") void ReflectMovement(bool HitPlayer, FVector HitNormal, FVector PaddleVelocity);
