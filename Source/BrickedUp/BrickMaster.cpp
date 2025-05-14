@@ -129,6 +129,10 @@ void ABrickMaster::TakeHealth(bool& ToBeDestroyed)
 			ToBeDestroyed = false;
 		}
 	}
+	else
+	{
+		ToBeDestroyed = false;
+	}
 }
 
 void ABrickMaster::FindNeighbouringBricks(TArray<ABrickMaster*>& NeighbouringBricks)

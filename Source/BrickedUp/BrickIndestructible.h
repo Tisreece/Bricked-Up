@@ -12,4 +12,6 @@ class BRICKEDUP_API ABrickIndestructible : public ABrickMaster
 
 public:
     ABrickIndestructible();
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Audio") USoundBase* IndestructibleAudio = nullptr;
 };
