@@ -9,6 +9,7 @@
 #include "PlayerPaddle.generated.h"
 
 class UAbilityComponentMaster;
+class ABall;
 
 //Delegates
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FAbilityChanged);
@@ -57,6 +58,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Ability") FAbilityInformation_Struct AbilityInformation;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Ability") bool AbilityLevelUp = true;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Audio") USoundBase* PaddleHitAudio = nullptr;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Audio") ABall* BallHit = nullptr;
+
 	//Delegates
 	UPROPERTY(BlueprintAssignable, Category="Ability") FAbilityChanged AbilityChanged;
 	
@@ -74,6 +78,8 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category="Ability") void ApplyAbility(AActor* OtherActor);
 	UFUNCTION(BlueprintCallable, Category="Ability") void ExpendAbility();
+
+	UFUNCTION(BlueprintCallable, Category="Hit") void GetBallFromHit(AActor* OtherActor, bool& BallFound); //Call on hit in BP
 
 private: 
 

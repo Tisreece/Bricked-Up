@@ -220,3 +220,17 @@ void APlayerPaddle::ExpendAbility()
 	AbilityInformation = FAbilityInformation_Struct();
 	AbilityChanged.Broadcast();
 }
+
+void APlayerPaddle::GetBallFromHit(AActor* OtherActor, bool& BallFound)
+{
+	ABall* Ball = Cast<ABall>(OtherActor);
+	if (Ball)
+	{
+		BallHit = Ball;
+		BallFound = true;
+	}
+	else
+	{
+		BallFound = false;
+	}
+}
