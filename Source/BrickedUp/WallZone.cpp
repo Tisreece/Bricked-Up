@@ -3,6 +3,9 @@
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
 
+#include "Ball.h"
+#include "BrickedUpFunctionLibrary.h"
+
 AWallZone::AWallZone()
 {
     PrimaryActorTick.bCanEverTick = true;
@@ -19,6 +22,10 @@ AWallZone::AWallZone()
     Box2->SetupAttachment(Root);
     Box2->SetCollisionProfileName(TEXT("BlockAllDynamic"));
 
+    //Bind Events
+    Box1->OnComponentHit.AddDynamic(this, &AWallZone::OnHit);
+    Box2->OnComponentHit.AddDynamic(this, &AWallZone::OnHit);
+
 }
 
 void AWallZone::BeginPlay()
@@ -31,5 +38,21 @@ void AWallZone::BeginPlay()
 void AWallZone::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
 
+void AWallZone::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+{
+    if (OtherActor && OtherActor != this)
+    {
+        if (OtherActor->IsA(ABall::StaticClass()))
+        {
+            ABall* Ball = Cast<ABall>(OtherActor);
+            {
+                if (Ball)
+                {
+                    UBrickedUpFunctionLibrary::PlayBallHitAudio(Ball, HitAudio);
+                }
+            }
+        }
+    }
 }
