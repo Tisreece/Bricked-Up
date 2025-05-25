@@ -44,5 +44,6 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="Lose Condition") void BallDestroyed();
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="Lose Condition") void BrickHitPlayer();
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="Lose Condition") void LoseGame();
+	UFUNCTION(BlueprintImplementableEVent, BlueprintCallable, Category="Win Condition") void WinGame();
 	
 };
