@@ -27,8 +27,8 @@ AAbilityDrop::AAbilityDrop()
 	ImagePlane->SetupAttachment(DropMesh);
 	ImagePlane->SetCollisionProfileName(TEXT("NoCollision"));
 	ImagePlane->SetRelativeRotation(FRotator(0.0f, 0.0f, 90.0f));
-	ImagePlane->SetRelativeLocation(FVector(0.0f, 2.0f, 0.0f));
-	ImagePlane->SetRelativeScale3D(FVector(0.05f, 0.05f, 0.05f));
+	ImagePlane->SetRelativeLocation(FVector(0.0f, 2.42f, 0.0f));
+	ImagePlane->SetRelativeScale3D(FVector(0.06f, 0.06f, 0.06f));
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> ImagePlaneFinder(TEXT("/Engine/BasicShapes/Plane"));
 	if (ImagePlaneFinder.Succeeded()) ImagePlane->SetStaticMesh(ImagePlaneFinder.Object);
 	
