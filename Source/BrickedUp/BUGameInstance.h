@@ -7,6 +7,7 @@
 #include "BUGameInstance.generated.h"
 
 class UBUSaveGame;
+class UOptionsSave;
 
 UCLASS()
 class BRICKEDUP_API UBUGameInstance : public UGameInstance
@@ -21,6 +22,8 @@ public:
 	//Variables
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="SaveGame") UBUSaveGame* SaveGameRef;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="SaveGame") FString GameSlotName = "Slot 1";
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="SaveGame") UOptionsSave* OptionsSaveRef;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="SaveGame") FString GameSlotName = "Options";
 
 	//Functions	
 	UFUNCTION(BlueprintCallable, Category="SaveGame") void LoadGame();
