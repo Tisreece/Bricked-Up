@@ -23,7 +23,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="SaveGame") UBUSaveGame* SaveGameRef;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="SaveGame") FString GameSlotName = "Slot 1";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="SaveGame") UOptionsSave* OptionsSaveRef;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="SaveGame") FString GameSlotName = "Options";
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="SaveGame") FString OptionsSlotName = "Options";
 
 	//Functions	
 	UFUNCTION(BlueprintCallable, Category="SaveGame") void LoadGame();
