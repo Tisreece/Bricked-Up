@@ -7,6 +7,9 @@
 #include "BU_GameMode.h"
 #include "Algo/Sort.h"
 #include "LeaderboardEntry_Struct.h"
+#include "GameOptions_Struct.h"
+#include "GameFramework/GameUserSettings.h"
+#include "OptionsSave.h"
 
 void UBUGameInstance::Init()
 {
@@ -81,6 +84,52 @@ void UBUGameInstance::CanHighScore(bool& CanHighScore) const
         const FLeaderboardEntry_Struct& TenthEntry = SaveGameRef->Leaderboard[9];
 
         CanHighScore = NewScore > TenthEntry.Score;
+    }
+}
+
+void UBUGameInstance::SetGameOptions(bool SetAudioOptions, bool SetGraphicsOptions)
+{
+    OptionsSaveRef = Cast<UOptionsSave>(UGameplayStatics::LoadGameFromSlot(OptionsSlotName, 0));
+
+    if (OptionsSaveRef)
+    {
+        FGameOptions_Struct GameOptions = OptionsSaveRef->GameOptions;
+
+        if (SetAudioOptions)
+        {
+            UGameplayStatics::SetSoundMixClassOverride(this, SoundMix, SoundClass, GameOptions.MasterVolume, 1.0f, 1.0f);
+        }
+        if (SetGraphicsOptions)
+        {
+            UGameUserSettings* Settings = GEngine->GetGameUserSettings();
+
+            //Graphics Settings
+            int32 GraphicsQuality = GameOptions.GraphicsQuality;
+            Settings->SetViewDistanceQuality(GraphicsQuality);
+            Settings->SetAntiAliasingQuality(GraphicsQuality);
+            Settings->SetPostProcessingQuality(GraphicsQuality);
+            Settings->SetGlobalIlluminationQuality(GraphicsQuality);
+            Settings->SetReflectionQuality(GraphicsQuality);
+            Settings->SetVisualEffectQuality(GraphicsQuality);
+            Settings->SetFoliageQuality(GraphicsQuality);
+            Settings->SetShadingQuality(GraphicsQuality);
+
+            //Shadow Setings
+            int32 ShadowQuality = GameOptions.ShadowQuality;
+            Settings->SetShadowQuality(ShadowQuality);
+
+            //Texture Settings
+            int32 TextureQuality = GameOptions.TextureQuality;
+            Settings->SetTextureQuality(TextureQuality);
+
+            //Vsync
+            Settings->SetVSyncEnabled(GameOptions.VSync);
+
+            //Frame Rate Limit
+            Settings->SetFrameRateLimit(GameOptions.FrameRateLimit);
+
+            Settings->ApplySettings(false);
+        }
     }
 }
 

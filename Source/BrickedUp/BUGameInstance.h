@@ -25,9 +25,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="SaveGame") UOptionsSave* OptionsSaveRef;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="SaveGame") FString OptionsSlotName = "Options";
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Audio") USoundMix* SoundMix;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Audio") USoundClass* SoundClass;
+
 	//Functions	
 	UFUNCTION(BlueprintCallable, Category="SaveGame") void LoadGame();
 	UFUNCTION(BlueprintCallable, Category="SaveGame") void CreateNewSave();
+	UFUNCTION(BlueprintCallable, Category="SaveGame") void SetGameOptions(bool SetAudioOptions, bool SetGraphicsOptions);
 	UFUNCTION(BlueprintCallable, category="Leaderboard") void InsertLeaderboardEntry(FString EntryName);
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Leaderboard") void CanHighScore(bool& CanHighScore) const;
