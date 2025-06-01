@@ -88,6 +88,7 @@ void APlayerPaddle::MovePaddle(float X)
 	CurrentVelocity = CurrentVelocity * -1;
 
 	PaddleCollision->AddLocalOffset(Movement, true);
+	//GEngine->AddOnScreenDebugMessage(-1, 0.0f, FColor::Cyan, FString::Printf(TEXT("X: %f"), X));
 }
 
 void APlayerPaddle::AscendPaddle()
