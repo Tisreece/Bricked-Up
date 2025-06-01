@@ -10,6 +10,9 @@
 #include "GameOptions_Struct.h"
 #include "GameFramework/GameUserSettings.h"
 #include "OptionsSave.h"
+#include "GenericPlatform/GenericApplication.h"
+#include "Framework/Application/SlateApplication.h"
+#include "HAL/PlatformApplicationMisc.h"
 
 void UBUGameInstance::Init()
 {
@@ -103,6 +106,22 @@ void UBUGameInstance::SetGameOptions(bool SetAudioOptions, bool SetGraphicsOptio
         {
             UGameUserSettings* Settings = GEngine->GetGameUserSettings();
 
+            //Resolution Settings
+            Settings->SetScreenResolution(GameOptions.Resolution);
+            
+            FDisplayMetrics DisplayMetrics;
+            FDisplayMetrics::RebuildDisplayMetrics(DisplayMetrics);
+            FIntPoint NativeResolution(DisplayMetrics.PrimaryDisplayWidth, DisplayMetrics.PrimaryDisplayHeight);
+
+            if (GameOptions.Resolution.X < NativeResolution.X || GameOptions.Resolution.Y < NativeResolution.Y)
+            {
+                Settings->SetFullscreenMode(EWindowMode::Windowed);
+            }
+            else
+            {
+                Settings->SetFullscreenMode(EWindowMode::WindowedFullscreen);
+            }
+            
             //Graphics Settings
             int32 GraphicsQuality = GameOptions.GraphicsQuality;
             Settings->SetViewDistanceQuality(GraphicsQuality);

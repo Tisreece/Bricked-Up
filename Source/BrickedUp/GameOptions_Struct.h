@@ -10,7 +10,7 @@ struct FGameOptions_Struct
 
 public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Settings|Audio",      meta=(ToolTip="0.0 - 1.0", ClampMin="0.0", ClampMax="1.0"))   float MasterVolume = 1.0f;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Settings|Graphics",   meta=(ToolTip="0 = 1080p", ClampMin="0", ClampMax="1"))       int32 Resolution = 0;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Settings|Graphics",   meta=(ToolTip="0 = 1080p", ClampMin="0", ClampMax="1"))       FIntPoint Resolution = FIntPoint(1920, 1080);
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Settings|Graphics",   meta=(ToolTip="0 - 4", ClampMin="0", ClampMax="4"))           int32 GraphicsQuality = 3;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Settings|Graphics",   meta=(ToolTip="0 - 4", ClampMin="0", ClampMax="4"))           int32 ShadowQuality = 3;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Settings|Graphics",   meta=(ToolTip="0 - 4", ClampMin="0", ClampMax="4"))           int32 TextureQuality = 3;
