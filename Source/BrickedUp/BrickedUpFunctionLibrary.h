@@ -12,4 +12,5 @@ class BRICKEDUP_API UBrickedUpFunctionLibrary : public UBlueprintFunctionLibrary
 
 public:
     UFUNCTION(BlueprintCallable, Category="Audio") static void PlayBallHitAudio(ABall* Ball, USoundBase* HitAudioToPlay);
+    UFUNCTION(BlueprintPure, Category="Text") static FText FormatRichText(FString Syntax, FString Text);
 };

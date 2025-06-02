@@ -16,3 +16,9 @@ void UBrickedUpFunctionLibrary::PlayBallHitAudio(ABall* Ball, USoundBase* HitAud
         }
     }
 }
+
+FText UBrickedUpFunctionLibrary::FormatRichText(FString Syntax, FString Text)
+{
+    FString Result = FString::Printf(TEXT("<%s>%s</>"), *Syntax, *Text);
+    return FText::FromString(Result);
+}

@@ -81,13 +81,20 @@ void APlayerPaddle::SetPlayerController()
 
 void APlayerPaddle::MovePaddle(float X)
 {
-	FVector Movement(X * Speed * GetWorld()->GetDeltaSeconds(), 0.0f, 0.0f);
+	//FVector Movement(X * Speed * GetWorld()->GetDeltaSeconds(), 0.0f, 0.0f);
+	FVector Movement = PaddleCollision->GetForwardVector() * X * Speed * GetWorld()->GetDeltaSeconds();
+
+	FVector CurrentLocation = PaddleCollision->GetRelativeLocation();
+	FVector NewLocation = CurrentLocation + Movement;
+	FHitResult HitResult;
 
 	//Get Current Velocity to effect Ball Movement
 	CurrentVelocity = Movement / GetWorld()->GetDeltaSeconds();
 	CurrentVelocity = CurrentVelocity * -1;
 
-	PaddleCollision->AddLocalOffset(Movement, true);
+	//PaddleCollision->AddLocalOffset(Movement, true);
+	//PaddleCollision->SetRelativeLocation(NewLocation, false, nullptr, ETeleportType::TeleportPhysics);
+	PaddleCollision->MoveComponent(Movement, PaddleCollision->GetComponentRotation(), true, &HitResult, EMoveComponentFlags::MOVECOMP_NoFlags, ETeleportType::None);
 	//GEngine->AddOnScreenDebugMessage(-1, 0.0f, FColor::Cyan, FString::Printf(TEXT("X: %f"), X));
 }
 
