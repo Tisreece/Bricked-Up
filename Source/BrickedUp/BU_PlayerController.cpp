@@ -3,6 +3,9 @@
 #include "PlayerPaddle.h"
 #include "Kismet/GameplayStatics.h"
 #include "Blueprint/UserWidget.h"
+#include "EnhancedInputSubsystems.h"
+#include "InputMappingContext.h"
+#include "EnhancedActionKeyMapping.h"
 
 //Sets default values
 ABU_PlayerController::ABU_PlayerController()
@@ -55,6 +58,38 @@ void ABU_PlayerController::PauseMenuHandler(bool Open)
             bShowMouseCursor = false;
 
             SetInputMode(FInputModeGameOnly());
+        }
+    }
+}
+
+void ABU_PlayerController::SetDebugInputs(UInputAction* EscapeAction)
+{
+    if(InputMapping)
+    {
+        TArray<FEnhancedActionKeyMapping> Mappings = InputMapping->GetMappings();
+
+        if(EscapeAction)
+        {
+            FEnhancedActionKeyMapping* EscapeMapping = Mappings.FindByPredicate(
+                [EscapeAction](const FEnhancedActionKeyMapping& Mapping)
+                {
+                    return Mapping.Action == EscapeAction;
+                }
+            );
+
+            if (EscapeMapping)
+            {
+                if(FPlatformMisc::IsPackagedForDistribution())
+                {
+                    InputMapping->UnmapAllKeysFromAction(EscapeMapping->Action);
+                    InputMapping->MapKey(EscapeMapping->Action, EKeys::Escape);
+                }
+                else
+                {
+                    InputMapping->UnmapAllKeysFromAction(EscapeMapping->Action);
+                    InputMapping->MapKey(EscapeMapping->Action, EKeys::P);
+                }
+            }
         }
     }
 }

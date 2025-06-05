@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "InputMappingContext.h"
 
 #include "BU_PlayerController.generated.h"
 
@@ -30,9 +31,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI|Pause") TSubclassOf<UUserWidget> PauseMenuClass;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI|Pause") UUserWidget* PauseMenu;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Input") UInputMappingContext* InputMapping;
+
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Setup") void SetCursorAndInput();
 
 	UFUNCTION(BlueprintCallable, Category="UI|Pause") void PauseMenuHandler(bool Open);
+	UFUNCTION(BlueprintCallable, Category="Input") void SetDebugInputs(UInputAction* EscapeAction);
 	
 };
