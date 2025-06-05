@@ -27,7 +27,12 @@ public:
 	//Variables
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Player") APlayerPaddle* PlayerPaddle;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI|Pause") TSubclassOf<UUserWidget> PauseMenuClass;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="UI|Pause") UUserWidget* PauseMenu;
+
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Setup") void SetCursorAndInput();
+
+	UFUNCTION(BlueprintCallable, Category="UI|Pause") void PauseMenuHandler(bool Open);
 	
 };
