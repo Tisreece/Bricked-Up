@@ -4,6 +4,8 @@
 #include "BrickMaster.h"
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "GeometryCollection/GeometryCollectionObject.h"
+#include "GeometryCollection/GeometryCollectionComponent.h"
 #include "Ball.h"
 #include "BU_GameMode.h"
 #include "AbilityDrop.h"
@@ -111,6 +113,54 @@ void ABrickMaster::DestroyBrick()
 		}
 	}
 
+	DestroyMesh();
+}
+
+void ABrickMaster::DestroyMesh()
+{
+	if (DestructionGC)
+	{
+		SpawnDestructionMesh();
+	}
+	else
+	{
+		Destroy();
+	}
+}
+
+void ABrickMaster::SpawnDestructionMesh()
+{
+	UGeometryCollectionComponent* GCComp = NewObject<UGeometryCollectionComponent>(this);
+	GCComp->SetRestCollection(DestructionGC);
+	GCComp->SetWorldTransform(GetActorTransform());
+	GCComp->AttachToComponent(BrickCollision, FAttachmentTransformRules::KeepWorldTransform);
+
+	GCComp->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	GCComp->SetCollisionResponseToAllChannels(ECR_Ignore);
+	GCComp->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
+	GCComp->SetCollisionResponseToChannel(ECC_Destructible, ECR_Block);
+	GCComp->SetGenerateOverlapEvents(false);
+	GCComp->SetMobility(EComponentMobility::Movable);
+
+	GCComp->RegisterComponent();
+	
+	GCComp->SetSimulatePhysics(true);
+	GCComp->SetEnableGravity(false);
+	
+	AddInstanceComponent(GCComp);
+	
+	GCComp->Activate();
+
+	Brick->SetVisibility(false);
+	Brick->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	BrickCollision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+	FTimerHandle TimerHandle;
+	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &ABrickMaster::DestructionCleanup, 5.0f, false);
+}
+
+void ABrickMaster::DestructionCleanup()
+{
 	Destroy();
 }
 
@@ -201,6 +251,6 @@ void ABrickMaster::FindNeighbouringBricks(TArray<ABrickMaster*>& NeighbouringBri
 //Interface
 void ABrickMaster::HitKillZone_Implementation()
 {
-	Destroy();
+	DestroyMesh();
 }
 

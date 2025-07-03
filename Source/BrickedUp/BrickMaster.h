@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Interface_KillZone.h"
+#include "GeometryCollection/GeometryCollectionObject.h"
 
 #include "BrickMaster.generated.h"
 
@@ -42,12 +43,18 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Audio") USoundBase* DestroyAudio = nullptr;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Audio") ABall* BallHit = nullptr;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Mesh") UGeometryCollection* DestructionGC;
+
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Hit") 
 		void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 	UFUNCTION(BlueprintCallable, Category="Hit") void DestroyBrick();
+	UFUNCTION(BlueprintCallable, Category="Hit") void DestroyMesh();
 	UFUNCTION(BlueprintCallable, Category="Hit") void TakeHealth(bool& ToBeDestroyed);
 	UFUNCTION(BlueprintCallable, Category="Hit") void FindNeighbouringBricks(TArray<ABrickMaster*>& NeighbouringBricks);
+	
+	UFUNCTION(BlueprintCallable, Category="Hit") void SpawnDestructionMesh();
+	UFUNCTION() void DestructionCleanup();
 
 	UFUNCTION(BlueprintCallable, Category="Scoring") void AddScore(float ScoreToAdd, float& NewScore);
 
