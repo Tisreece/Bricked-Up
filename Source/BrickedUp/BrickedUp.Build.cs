@@ -9,7 +9,7 @@ public class BrickedUp : ModuleRules
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
 		PublicDependencyModuleNames.AddRange(new string[] {
-			"Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "Slate", "SlateCore", "ApplicationCore", "UMG", "EnhancedInput", "ChaosSolverEngine", "GeometryCollectionEngine"
+			"Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "Slate", "SlateCore", "ApplicationCore", "UMG", "EnhancedInput", "Chaos", "ChaosSolverEngine", "GeometryCollectionEngine"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });

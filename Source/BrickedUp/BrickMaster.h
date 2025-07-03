@@ -63,6 +63,7 @@ public:
 	
 	//Events
 	UFUNCTION(BlueprintImplementableEvent, Category="Hit") void HitEffect();
+	UFUNCTION(BlueprintImplementableEvent, Category="Destruction") void StartDestruction();
 
 	//Interface
 	virtual void HitKillZone_Implementation() override;

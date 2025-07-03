@@ -4,6 +4,7 @@
 #include "BrickMaster.h"
 #include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "GeometryCollection/GeometryCollection.h"
 #include "GeometryCollection/GeometryCollectionObject.h"
 #include "GeometryCollection/GeometryCollectionComponent.h"
 #include "Ball.h"
@@ -120,7 +121,13 @@ void ABrickMaster::DestroyMesh()
 {
 	if (DestructionGC)
 	{
-		SpawnDestructionMesh();
+		Brick->SetVisibility(false);
+		Brick->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		BrickCollision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		
+		FTimerHandle TimerHandle;
+		GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &ABrickMaster::DestructionCleanup, 5.0f, false);
+		StartDestruction();
 	}
 	else
 	{
@@ -136,17 +143,24 @@ void ABrickMaster::SpawnDestructionMesh()
 	GCComp->AttachToComponent(BrickCollision, FAttachmentTransformRules::KeepWorldTransform);
 
 	GCComp->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	GCComp->SetCollisionObjectType(ECC_Destructible);
 	GCComp->SetCollisionResponseToAllChannels(ECR_Ignore);
 	GCComp->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
 	GCComp->SetCollisionResponseToChannel(ECC_Destructible, ECR_Block);
 	GCComp->SetGenerateOverlapEvents(false);
 	GCComp->SetMobility(EComponentMobility::Movable);
-
+	
 	GCComp->RegisterComponent();
+	for (int32 i = 0; i < GCComp->DamageThreshold.Num(); ++i)
+	{
+		GCComp->DamageThreshold[i] = 1.0f;
+	}
 	
 	GCComp->SetSimulatePhysics(true);
 	GCComp->SetEnableGravity(false);
-	
+	GCComp->SetNotifyBreaks(true);
+
+
 	AddInstanceComponent(GCComp);
 	
 	GCComp->Activate();
@@ -154,6 +168,14 @@ void ABrickMaster::SpawnDestructionMesh()
 	Brick->SetVisibility(false);
 	Brick->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	BrickCollision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+	GCComp->AddRadialImpulse(
+		GetActorLocation(),
+		20.0f,
+		150.0f,
+		ERadialImpulseFalloff::RIF_Linear,
+		true
+	);
 
 	FTimerHandle TimerHandle;
 	GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &ABrickMaster::DestructionCleanup, 5.0f, false);
