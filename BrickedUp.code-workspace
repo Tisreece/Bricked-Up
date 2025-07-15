@@ -20,7 +20,8 @@
 			"DOTNET_ROLL_FORWARD": "LatestMajor"
 		},
 		"files.associations": {
-			"*.rh": "cpp"
+			"*.rh": "cpp",
+			"abilitydropluck cpp": "cpp"
 		},
 		"editor.bracketPairColorization.enabled": true,
 		"workbench.colorCustomizations": {

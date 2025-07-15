@@ -47,9 +47,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Stats", meta = (ToolTip = "Whether or not the drop triggers a level up or down")) 
 		bool AbilityLevelUp = true;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability") TSubclassOf<UAbilityComponentMaster> AbilityComponentToApply;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability") bool Rare = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Mesh") UMaterialInterface* UpgradeMaterial;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Mesh") UMaterialInterface* DowngradeMaterial;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Mesh") UMaterialInterface* RareUpgradeMaterial;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Mesh") UMaterialInterface* RareDowngradeMaterial;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Mesh") UMaterialInterface* NeutralMaterial;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Information") FString AbilityName = "Ability Name";

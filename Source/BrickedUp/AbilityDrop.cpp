@@ -50,6 +50,16 @@ AAbilityDrop::AAbilityDrop()
 	{
 		NeutralMaterial = NeutralMatFinder.Object;
 	}
+	static ConstructorHelpers::FObjectFinder<UMaterialInterface> RarePositiveMatFinder(TEXT("/Game/Abilities/Drops/AbilityDropRareUpgrade_Mat"));
+	if(RarePositiveMatFinder.Succeeded())
+	{
+		RareUpgradeMaterial = RarePositiveMatFinder.Object;
+	}
+	static ConstructorHelpers::FObjectFinder<UMaterialInterface> RareNegativeMatFinder(TEXT("/Game/Abilities/Drops/AbilityDropRareDowngrade_Mat"));
+	if(RareNegativeMatFinder.Succeeded())
+	{
+		RareDowngradeMaterial = RareNegativeMatFinder.Object;
+	}
 }
 
 // Called when the game starts or when spawned
@@ -134,18 +144,38 @@ void AAbilityDrop::SetRandomStats()
 
 void AAbilityDrop::SetMaterial()
 {
-	if(AbilityLevelUp)
+	if (Rare)
 	{
-		if(UpgradeMaterial)
+		if (AbilityLevelUp)
 		{
-			DropMesh->SetMaterial(0, UpgradeMaterial);
+			if (RareUpgradeMaterial)
+			{
+				DropMesh->SetMaterial(0, RareUpgradeMaterial);
+			}
+		}
+		else
+		{
+			if (RareDowngradeMaterial)
+			{
+				DropMesh->SetMaterial(0, RareDowngradeMaterial);
+			}
 		}
 	}
 	else
 	{
-		if(DowngradeMaterial)
+		if(AbilityLevelUp)
 		{
-			DropMesh->SetMaterial(0, DowngradeMaterial);
+			if(UpgradeMaterial)
+			{
+				DropMesh->SetMaterial(0, UpgradeMaterial);
+			}
+		}
+		else
+		{
+			if(DowngradeMaterial)
+			{
+				DropMesh->SetMaterial(0, DowngradeMaterial);
+			}
 		}
 	}
 }
