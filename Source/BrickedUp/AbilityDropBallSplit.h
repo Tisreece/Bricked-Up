@@ -12,4 +12,8 @@ class BRICKEDUP_API AAbilityDropBallSplit : public AAbilityDrop
 
  public:
     AAbilityDropBallSplit();
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Ball Split") TSubclassOf<UAbilityComponentMaster> SplitComponent;
+    
+    UFUNCTION(BlueprintCallable, Category="Ability|Ball Split") void ApplyComponents();
 };
