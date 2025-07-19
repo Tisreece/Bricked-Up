@@ -151,6 +151,8 @@ void AAbilityDrop::SetMaterial()
 			if (RareUpgradeMaterial)
 			{
 				DropMesh->SetMaterial(0, RareUpgradeMaterial);
+				DropMesh->bRenderCustomDepth = true;
+				DropMesh->CustomDepthStencilValue = 0;
 			}
 		}
 		else
@@ -158,6 +160,8 @@ void AAbilityDrop::SetMaterial()
 			if (RareDowngradeMaterial)
 			{
 				DropMesh->SetMaterial(0, RareDowngradeMaterial);
+				DropMesh->bRenderCustomDepth = true;
+				DropMesh->CustomDepthStencilValue = 1;
 			}
 		}
 	}
