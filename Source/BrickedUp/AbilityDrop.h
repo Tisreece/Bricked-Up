@@ -37,7 +37,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Component") class UStaticMeshComponent* ImagePlane;
 
 	//Variables
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") float Speed = 50.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") float Speed = 35.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") FVector Velocity = FVector(0.0f, 0.0f, -1.0f);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability") bool InstantEffect = true;
