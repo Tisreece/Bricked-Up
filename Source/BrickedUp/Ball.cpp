@@ -6,6 +6,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "PlayerPaddle.h"
 #include "Components/BoxComponent.h"
+#include "AbilityComponentMaster.h"
 
 #include "Interface_KillZone.h"
 
@@ -90,6 +91,23 @@ void ABall::DetachFromPaddle(APlayerPaddle* Paddle)
 		DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
 		IsAttached = false;
 	}
+}
+
+void ABall::GetBrickHitOverridingComponent(UAbilityComponentMaster*& OverridingComponent) const
+{
+	for (UActorComponent* Component : GetComponents())
+	{
+		if (Component->IsA(UAbilityComponentMaster::StaticClass()))
+		{
+			UAbilityComponentMaster* AbilityComponent = Cast<UAbilityComponentMaster>(Component);
+			if (AbilityComponent && AbilityComponent->OverridesBrickHit)
+			{
+				OverridingComponent = AbilityComponent;
+				return;
+			}
+		}
+	}
+	OverridingComponent = nullptr;
 }
 
 //Interfaces

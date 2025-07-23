@@ -24,6 +24,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability|Stats") int StartingLevel = 1;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability") FName Name = "Default Name";
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability") bool RequiresStartingLevelOverride = false;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ability") bool OverridesBrickHit = false;
 
     //Events
     UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Ability|Trigger") void TriggerEffect();

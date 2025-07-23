@@ -13,4 +13,7 @@ public:
     //Variables
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability") FString Name;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability") UTexture2D* AbilityImage;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability") bool CanLevelUp;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability") bool AbilityLevelUp;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability") bool Rare;
 };

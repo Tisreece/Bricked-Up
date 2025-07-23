@@ -5,13 +5,15 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Interface_KillZone.h"
+#include "Interface_HitBrick.h"
 
 #include "Ball.generated.h"
 
 class APlayerPaddle;
+class UAbilityComponentMaster;
 
 UCLASS()
-class BRICKEDUP_API ABall : public AActor, public IInterface_KillZone
+class BRICKEDUP_API ABall : public AActor, public IInterface_KillZone, public IInterface_HitBrick
 {
 	GENERATED_BODY()
 	
@@ -51,6 +53,8 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category="Attach") void AttachToPaddle(APlayerPaddle* Paddle);
 	UFUNCTION(BlueprintCallable, Category="Attach") void DetachFromPaddle(APlayerPaddle* Paddle);
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Hit") void GetBrickHitOverridingComponent(UAbilityComponentMaster*& OverridingComponent) const;
 
 	//Interface
 	virtual void HitKillZone_Implementation() override;

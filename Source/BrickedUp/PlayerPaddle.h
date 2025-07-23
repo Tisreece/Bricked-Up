@@ -56,7 +56,6 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Ability") TSubclassOf<UAbilityComponentMaster> StoredAbility;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Ability") FAbilityInformation_Struct AbilityInformation;
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Ability") bool AbilityLevelUp = true;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Audio") USoundBase* PaddleHitAudio = nullptr;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Audio") ABall* BallHit = nullptr;

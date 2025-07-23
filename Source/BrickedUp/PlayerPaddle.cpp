@@ -170,7 +170,7 @@ void APlayerPaddle::ApplyAbility(AActor* OtherActor)
 			float NewLevel = 0;
 			bool CanChangeLevel = false;
 			
-			if (AbilityLevelUp)
+			if (AbilityInformation.AbilityLevelUp)
 			{
 				NewLevel = FoundComponent->Level + 1;
 				CanChangeLevel = NewLevel <= FoundComponent->MaxLevel;
@@ -193,7 +193,7 @@ void APlayerPaddle::ApplyAbility(AActor* OtherActor)
 			if(AbilityComponent->RequiresStartingLevelOverride)
 			{
 				int NewLevel = 0;
-				if (AbilityLevelUp)
+				if (AbilityInformation.AbilityLevelUp)
 				{
 					NewLevel= AbilityComponent->StartingLevel + 1;
 				}

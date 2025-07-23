@@ -114,14 +114,6 @@ void AAbilityDrop::HitPlayer(APlayerPaddle* PlayerPaddle)
 		//For Stored Ability
 		PlayerPaddle->StoredAbility = AbilityComponentToApply;
 		PlayerPaddle->AbilityInformation = AbilityInformation;
-		if(CanLevelUp)
-		{
-			PlayerPaddle->AbilityLevelUp = AbilityLevelUp;
-		}
-		else
-		{
-			PlayerPaddle->AbilityLevelUp = true;
-		}
 		PlayerPaddle->AbilityChanged.Broadcast();
 		Destroy();
 	}
@@ -212,6 +204,9 @@ void AAbilityDrop::SetAbilityInformation()
 			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, TEXT("Error: No material set for Ability Plane Downgrade"));
 		}
 	}
+	AbilityInformation.CanLevelUp = CanLevelUp;
+	AbilityInformation.AbilityLevelUp = AbilityLevelUp;
+	AbilityInformation.Rare = Rare;
 }
 
 void AAbilityDrop::ApplyInstantComponent(APlayerPaddle* PlayerPaddle)

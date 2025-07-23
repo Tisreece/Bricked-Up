@@ -48,6 +48,7 @@ public:
 		bool AbilityLevelUp = true;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability") TSubclassOf<UAbilityComponentMaster> AbilityComponentToApply;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability") bool Rare = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability") bool Unique = false;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Mesh") UMaterialInterface* UpgradeMaterial;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Mesh") UMaterialInterface* DowngradeMaterial;

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Interface_KillZone.h"
+#include "Interface_HitBrick.h"
 #include "GeometryCollection/GeometryCollectionObject.h"
 
 #include "BrickMaster.generated.h"
@@ -13,7 +14,7 @@ class AAbilityDrop;
 class ABall;
 
 UCLASS()
-class BRICKEDUP_API ABrickMaster : public AActor, public IInterface_KillZone
+class BRICKEDUP_API ABrickMaster : public AActor, public IInterface_KillZone, public IInterface_HitBrick
 {
 	GENERATED_BODY()
 	
