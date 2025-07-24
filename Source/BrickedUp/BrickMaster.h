@@ -63,7 +63,7 @@ public:
 
 	
 	//Events
-	UFUNCTION(BlueprintImplementableEvent, Category="Hit") void HitEffect();
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category="Hit") void HitEffect();
 	UFUNCTION(BlueprintImplementableEvent, Category="Destruction") void StartDestruction();
 
 	//Interface

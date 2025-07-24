@@ -11,6 +11,7 @@
 #include "BU_GameMode.h"
 #include "AbilityDrop.h"
 #include "PlayerPaddle.h"
+#include "Interface_HitBrick.h"
 
 #include "Interface_KillZone.h"
 
@@ -55,7 +56,7 @@ void ABrickMaster::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, 
 	if (OtherActor && OtherActor != this && OtherActor->IsA(ABall::StaticClass()))
 	{
 		BallHit = Cast<ABall>(OtherActor);
-		HitEffect();
+		IInterface_HitBrick::Execute_HitBrick(BallHit, this);
 	}
 }
 
@@ -268,6 +269,11 @@ void ABrickMaster::FindNeighbouringBricks(TArray<ABrickMaster*>& NeighbouringBri
 			NeighbouringBricks.Add(HitBrickBelow);
 		}
 	}
+}
+
+void ABrickMaster::HitEffect_Implementation()
+{
+	
 }
 
 //Interface

@@ -16,7 +16,7 @@ public:
     UAbilityComponentExplosiveBall();
 
     // Variables
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Mesh") UMaterialInstance* BallMaterial;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Mesh") UMaterial* BallMaterial;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Hit") ABrickMaster* BrickToExplode;
 
     // Functions
