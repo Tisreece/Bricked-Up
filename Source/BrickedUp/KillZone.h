@@ -27,4 +27,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Component") class UBoxComponent* KillCollision;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Component") class UStaticMeshComponent* KillMesh;
 
+	//Variables
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Audio") bool CanPlayKillAudio = true;
+
 };
