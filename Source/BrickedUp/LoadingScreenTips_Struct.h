@@ -10,6 +10,7 @@ struct FLoadingScreenTip : public FTableRowBase
 
 public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Loading Screen") UTexture2D* Image;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Loading Screen") UTexture2D* ImageBackground;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Loading Screen") FString Title;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Loading Screen") FString Description;
 };
