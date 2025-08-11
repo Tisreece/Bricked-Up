@@ -50,8 +50,10 @@ void ABall::Tick(float DeltaTime)
 void ABall::ApplyPhysics(float DeltaTime)
 {
 	Velocity = Velocity.GetSafeNormal() * Speed;
-	
+	FRotator Rotation = RotationRate * Speed;
+
 	AddActorWorldOffset(Velocity * DeltaTime, true);
+	Ball->AddLocalRotation(Rotation * DeltaTime, true);
 }
 
 void ABall::ReflectMovement(bool HitPlayer, FVector HitNormal, FVector PaddleVelocity)
@@ -72,6 +74,7 @@ void ABall::ReflectMovement(bool HitPlayer, FVector HitNormal, FVector PaddleVel
 	{
 		Velocity = Velocity.MirrorByVector(HitNormal);
 	}
+	RotationRate *= -1;
 }
 
 void ABall::AttachToPaddle(APlayerPaddle* Paddle)

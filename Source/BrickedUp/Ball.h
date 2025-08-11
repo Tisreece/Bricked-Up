@@ -36,6 +36,7 @@ public:
 	//Variables
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") float Speed = 200.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") FVector Velocity = FVector(0.0f, 0.0f, 1.0f);
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") FRotator RotationRate = FRotator(5.0f, 0.0f, 0.0f);
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") float PlayerImpactOffset = 2.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") float PlayerVelocityBoost = 10.0f;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") bool CanHitPlayer = true;
