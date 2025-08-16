@@ -82,6 +82,7 @@ void APlayerPaddle::SetPlayerController()
 void APlayerPaddle::MovePaddle(float X)
 {
 	FVector Movement(X * Speed * GetWorld()->GetDeltaSeconds(), 0.0f, 0.0f);
+	Movement *= MovementMultiplier;
 
 	//Get Current Velocity to effect Ball Movement
 	CurrentVelocity = Movement / GetWorld()->GetDeltaSeconds();

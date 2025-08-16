@@ -43,12 +43,13 @@ public:
 	
 	
 	//Variables
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Paddle") float Speed; 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Paddle") FVector CurrentVelocity;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement|Paddle") float Speed; 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Movement|Paddle") FVector CurrentVelocity;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement|Paddle") float MovementMultiplier = 1.0f;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Movement") float AscendSpeed;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") float AscendSpeedDefault = 1.0f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement") float SprintSpeed = 5.0f;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Movement|Ascend") float AscendSpeed;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement|Ascend") float AscendSpeedDefault = 1.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement|Ascend") float SprintSpeed = 5.0f;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Scoring") float PreviousCheckpoint;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Scoring") float NextCheckpoint;
