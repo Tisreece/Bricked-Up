@@ -170,6 +170,7 @@ void APlayerPaddle::ApplyAbility(AActor* OtherActor)
 			float NewLevel = 0;
 			bool CanChangeLevel = false;
 			
+			// Is the component to be levelled up or down
 			if (AbilityInformation.AbilityLevelUp)
 			{
 				NewLevel = FoundComponent->Level + 1;
@@ -178,7 +179,7 @@ void APlayerPaddle::ApplyAbility(AActor* OtherActor)
 			else
 			{
 				NewLevel = FoundComponent->Level - 1;
-				CanChangeLevel = NewLevel >= 1;
+				CanChangeLevel = NewLevel >= 1 && FoundComponent->MaxLevel != 1;
 			}
 			if (CanChangeLevel)
 			{
