@@ -15,3 +15,12 @@ void UAbilityComponentWaterBall::SetBallMaterial()
         Ball->Ball->SetMaterial(0, BallMaterial);
     }
 }
+
+void UAbilityComponentWaterBall::ResetBallMaterial(UMaterial* ResetMaterial)
+{
+    ABall* Ball = Cast<ABall>(GetOwner());
+    if (Ball && ResetMaterial)
+    {
+        Ball->Ball->SetMaterial(0, ResetMaterial);
+    }
+}

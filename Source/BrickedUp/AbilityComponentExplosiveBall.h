@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "AbilityComponentMaster.h"
 #include "Interface_HitBrick.h"
+#include "NiagaraComponent.h"
 
 #include "AbilityComponentExplosiveBall.generated.h"
 
@@ -18,8 +19,10 @@ public:
     // Variables
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Mesh") UMaterial* BallMaterial;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Hit") ABrickMaster* BrickToExplode;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="VFX") UNiagaraComponent* BallEffect;
 
     // Functions
     UFUNCTION(BlueprintCallable, Category="Ability|Explosive Ball") void SetBallMaterial();
+    UFUNCTION(BlueprintCallable, Category="Ability|Explosive Ball") void ResetBallMaterial(UMaterial* ResetMaterial);
     UFUNCTION(BlueprintCallable, Category="Ability|Explosive Ball") void Explode(TArray<ABrickMaster*> BricksToExplode);
 };

@@ -18,6 +18,15 @@ void UAbilityComponentExplosiveBall::SetBallMaterial()
     }
 }
 
+void UAbilityComponentExplosiveBall::ResetBallMaterial(UMaterial* ResetMaterial)
+{
+    ABall* Ball = Cast<ABall>(GetOwner());
+    if (Ball && ResetMaterial)
+    {
+        Ball->Ball->SetMaterial(0, ResetMaterial);
+    }
+}
+
 void UAbilityComponentExplosiveBall::Explode(TArray<ABrickMaster*> BricksToExplode)
 {
     for (ABrickMaster* MarkedBrick : BricksToExplode)
