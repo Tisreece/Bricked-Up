@@ -6,6 +6,7 @@ UAbilityComponentExplosiveBall::UAbilityComponentExplosiveBall()
 {
     OverridesBrickHit = true;
     MaxLevel = 1;
+    Unique = true;
 }
 
 void UAbilityComponentExplosiveBall::SetBallMaterial()

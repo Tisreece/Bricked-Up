@@ -77,6 +77,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Scoring") void AddScore(float ScoreToAdd, float& NewScore);
 
 	UFUNCTION(BlueprintCallable, Category="Ability") void ApplyAbility(AActor* OtherActor);
+	UFUNCTION(BlueprintCallable, Category="Ability") void RegisterNewAbilityComponent(ABall* Ball);
 	UFUNCTION(BlueprintCallable, Category="Ability") void ExpendAbility();
 
 	UFUNCTION(BlueprintCallable, Category="Hit") void GetBallFromHit(AActor* OtherActor, bool& BallFound); //Call on hit in BP

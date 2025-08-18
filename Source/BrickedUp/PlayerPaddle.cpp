@@ -166,6 +166,7 @@ void APlayerPaddle::ApplyAbility(AActor* OtherActor)
 			}
 		}
 
+		//Found Same Component
 		if (FoundComponent)
 		{
 			float NewLevel = 0;
@@ -190,7 +191,53 @@ void APlayerPaddle::ApplyAbility(AActor* OtherActor)
 		}
 		else
 		{
-			UAbilityComponentMaster* AbilityComponent = NewObject<UAbilityComponentMaster>(Ball, StoredAbility);
+			// Is incoming component unique?
+			if (StoredAbility->GetDefaultObject<UAbilityComponentMaster>()->Unique)
+			{
+				UAbilityComponentMaster* FoundUniqueComponent = nullptr;
+
+				for (UActorComponent* Component : Ball->GetComponents())
+				{
+					if (Component->IsA<UAbilityComponentMaster>())
+					{
+						UAbilityComponentMaster* UniqueComponent = Cast<UAbilityComponentMaster>(Component);
+						if (UniqueComponent && UniqueComponent->Unique)
+						{
+							FoundUniqueComponent = UniqueComponent;
+							break;
+						}
+					}
+				}
+				// Found existing unique component
+				if (FoundUniqueComponent)
+				{
+					FoundUniqueComponent->RemoveComponent();
+					RegisterNewAbilityComponent(Ball);
+					ExpendAbility();
+				}
+				else
+				{
+					RegisterNewAbilityComponent(Ball);
+					ExpendAbility();
+				}
+			}
+			else
+			{
+				RegisterNewAbilityComponent(Ball);
+				ExpendAbility();
+			}
+			
+			
+		}
+		
+	}
+}
+
+void APlayerPaddle::RegisterNewAbilityComponent(ABall* Ball)
+{
+	if (Ball)
+	{
+		UAbilityComponentMaster* AbilityComponent = NewObject<UAbilityComponentMaster>(Ball, StoredAbility);
 
 			if(AbilityComponent->RequiresStartingLevelOverride)
 			{
@@ -209,10 +256,6 @@ void APlayerPaddle::ApplyAbility(AActor* OtherActor)
 			AbilityComponent->RegisterComponent();
 			AbilityComponent->SetComponentTickEnabled(true);
 			Ball->AddInstanceComponent(AbilityComponent);
-
-			ExpendAbility();
-		}
-		
 	}
 }
 
