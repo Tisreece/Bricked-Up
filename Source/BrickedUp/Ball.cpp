@@ -113,6 +113,24 @@ void ABall::GetBrickHitOverridingComponent(UAbilityComponentMaster*& OverridingC
 	OverridingComponent = nullptr;
 }
 
+void ABall::GetComponentWithInterface(TSubclassOf<UInterface> Interface, UAbilityComponentMaster*& OverridingComponent) const
+{
+	OverridingComponent = nullptr;
+
+	for (UActorComponent* Component : GetComponents())
+	{
+		if (Component->GetClass()->ImplementsInterface(Interface))
+		{
+			UAbilityComponentMaster* AbilityComponent = Cast<UAbilityComponentMaster>(Component);
+			if (AbilityComponent)
+			{
+				OverridingComponent = AbilityComponent;
+				return;
+			}
+		}
+	}
+}
+
 //Interfaces
 void ABall::HitKillZone_Implementation()
 {

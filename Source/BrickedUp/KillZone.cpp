@@ -17,6 +17,10 @@ AKillZone::AKillZone()
 	RootComponent = KillCollision;
 	KillCollision->SetCollisionProfileName(TEXT("OverlapAllDynamic"));
 
+	KillHitCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("Kill Hit Collision"));
+	KillHitCollision->SetupAttachment(KillCollision);
+	KillHitCollision->SetCollisionProfileName(TEXT("BlockAllDynamic"));
+
 	KillMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Kill Mesh"));
 	KillMesh->SetupAttachment(KillCollision);
 	KillMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);

@@ -56,6 +56,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Attach") void DetachFromPaddle(APlayerPaddle* Paddle);
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Hit") void GetBrickHitOverridingComponent(UAbilityComponentMaster*& OverridingComponent) const;
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Component") void GetComponentWithInterface(TSubclassOf<UInterface> Interface, UAbilityComponentMaster*& OverridingComponent) const;
 
 	//Interface
 	virtual void HitKillZone_Implementation() override;

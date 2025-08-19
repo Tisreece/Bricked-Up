@@ -2,11 +2,12 @@
 
 #include "CoreMinimal.h"
 #include "AbilityComponentMaster.h"
+#include "Interface_KillZone.h"
 
 #include "AbilityComponentWaterBall.generated.h"
 
 UCLASS()
-class BRICKEDUP_API UAbilityComponentWaterBall : public UAbilityComponentMaster
+class BRICKEDUP_API UAbilityComponentWaterBall : public UAbilityComponentMaster, public IInterface_KillZone
 {
     GENERATED_BODY()
 public:
