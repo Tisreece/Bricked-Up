@@ -7,6 +7,7 @@
 #include "BU_GameMode.h"
 #include "Ball.h"
 #include "AbilityComponentMaster.h"
+#include "Kismet/GameplayStatics.h"
 
 #include "BU_PlayerController.h"
 
@@ -226,10 +227,7 @@ void APlayerPaddle::ApplyAbility(AActor* OtherActor)
 				RegisterNewAbilityComponent(Ball);
 				ExpendAbility();
 			}
-			
-			
 		}
-		
 	}
 }
 
@@ -261,6 +259,10 @@ void APlayerPaddle::RegisterNewAbilityComponent(ABall* Ball)
 
 void APlayerPaddle::ExpendAbility()
 {
+	if (AbilityInformation.AbilityTriggerAudio)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, AbilityInformation.AbilityTriggerAudio, GetActorLocation());
+	}
 	StoredAbility = nullptr;
 	AbilityInformation = FAbilityInformation_Struct();
 	AbilityChanged.Broadcast();

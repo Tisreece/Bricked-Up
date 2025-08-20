@@ -60,6 +60,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Information") FString AbilityDowngradeName = "Ability Downgrade Name";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Information") UTexture2D* AbilityImage;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Information") UTexture2D* AbilityDowngradeImage;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Information") USoundBase* AbilityTriggerAudio;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Information") USoundBase* AbilityTriggerAudioDowngrade;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Mesh") UMaterialInterface* AbilityPlaneMaterial;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Mesh") UMaterialInterface* AbilityPlaneDowngradeMaterial;
 

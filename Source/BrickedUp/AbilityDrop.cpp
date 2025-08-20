@@ -7,6 +7,7 @@
 #include "AbilityComponentMaster.h"
 #include "BU_GameMode.h"
 #include "AbilityInformation_Struct.h"
+#include "Kismet/GameplayStatics.h"
 
 #include "Interface_KillZone.h"
 
@@ -60,6 +61,14 @@ AAbilityDrop::AAbilityDrop()
 	{
 		RareDowngradeMaterial = RareNegativeMatFinder.Object;
 	}
+
+	//Set Audio Defaults
+	static ConstructorHelpers::FObjectFinder<USoundBase> AbilityTriggerAudioFinder(TEXT("/Game/Shared/Audio/Beep1"));
+	if(AbilityTriggerAudioFinder.Succeeded())
+	{
+		AbilityTriggerAudio = AbilityTriggerAudioFinder.Object;
+		AbilityTriggerAudioDowngrade = AbilityTriggerAudioFinder.Object;
+	}
 }
 
 // Called when the game starts or when spawned
@@ -100,6 +109,10 @@ void AAbilityDrop::HitPlayer(APlayerPaddle* PlayerPaddle)
 {
 	if (InstantEffect)
 	{
+		if (AbilityInformation.AbilityTriggerAudio)
+		{
+			UGameplayStatics::PlaySoundAtLocation(this, AbilityInformation.AbilityTriggerAudio, GetActorLocation());
+		}
 		if (AppliesComponent)
 		{
 			ApplyInstantComponent(PlayerPaddle);
@@ -190,6 +203,7 @@ void AAbilityDrop::SetAbilityInformation()
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, TEXT("Error: No material set for Ability Plane"));
 		}
+		AbilityInformation.AbilityTriggerAudio = AbilityTriggerAudio;
 	}
 	else
 	{
@@ -203,6 +217,7 @@ void AAbilityDrop::SetAbilityInformation()
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, TEXT("Error: No material set for Ability Plane Downgrade"));
 		}
+		AbilityInformation.AbilityTriggerAudio = AbilityTriggerAudioDowngrade;
 	}
 	AbilityInformation.CanLevelUp = CanLevelUp;
 	AbilityInformation.AbilityLevelUp = AbilityLevelUp;

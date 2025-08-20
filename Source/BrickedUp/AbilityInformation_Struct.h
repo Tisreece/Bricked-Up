@@ -16,4 +16,5 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability") bool CanLevelUp;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability") bool AbilityLevelUp;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability") bool Rare;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Audio") USoundBase* AbilityTriggerAudio;
 };
