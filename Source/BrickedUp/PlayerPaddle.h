@@ -40,8 +40,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Component") class UBoxComponent* PaddleCollision;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Component") class UBoxComponent* PaddleOverlapCollision;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Component") class UStaticMeshComponent* Paddle;
-	
-	
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Component") class UStaticMeshComponent* Gun1;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Component") class UStaticMeshComponent* Gun2;
+
 	//Variables
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Movement|Paddle") float Speed; 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Movement|Paddle") FVector CurrentVelocity;
@@ -79,6 +80,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Ability") void ApplyAbility(AActor* OtherActor);
 	UFUNCTION(BlueprintCallable, Category="Ability") void RegisterNewAbilityComponent(ABall* Ball);
 	UFUNCTION(BlueprintCallable, Category="Ability") void ExpendAbility();
+
+	UFUNCTION(BlueprintCallable, Category="Component") void SetGunVisibility(bool Visible);
 
 	UFUNCTION(BlueprintCallable, Category="Hit") void GetBallFromHit(AActor* OtherActor, bool& BallFound); //Call on hit in BP
 

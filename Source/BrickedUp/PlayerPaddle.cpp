@@ -37,6 +37,16 @@ APlayerPaddle::APlayerPaddle()
 	PaddleOverlapCollision->SetBoxExtent(FVector(9.8f, 1.5f, 1.5f));
 	PaddleOverlapCollision->SetCollisionProfileName(TEXT("OverlapAllDynamic"));
 
+	Gun1 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Gun 1"));
+	Gun1->SetupAttachment(Paddle);
+	Gun1->SetCollisionProfileName(TEXT("NoCollision"));
+	Gun1->SetVisibility(false);
+
+	Gun2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Gun 2"));
+	Gun2->SetupAttachment(Paddle);
+	Gun2->SetCollisionProfileName(TEXT("NoCollision"));
+	Gun2->SetVisibility(false);
+
 	//Variables
 	Speed = 2.0f;
 	AscendSpeed = AscendSpeedDefault;
@@ -279,5 +289,14 @@ void APlayerPaddle::GetBallFromHit(AActor* OtherActor, bool& BallFound)
 	else
 	{
 		BallFound = false;
+	}
+}
+
+void APlayerPaddle::SetGunVisibility(bool Visible)
+{
+	if(Gun1 && Gun2)
+	{
+		Gun1->SetVisibility(Visible);
+		Gun2->SetVisibility(Visible);
 	}
 }
