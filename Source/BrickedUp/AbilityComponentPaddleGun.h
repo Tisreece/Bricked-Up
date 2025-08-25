@@ -2,11 +2,12 @@
 
 #include "CoreMinimal.h"
 #include "AbilityComponentMaster.h"
+#include "Interface_Fire.h"
 
 #include "AbilityComponentPaddleGun.generated.h"
 
 UCLASS()
-class BRICKEDUP_API UAbilityComponentPaddleGun : public UAbilityComponentMaster
+class BRICKEDUP_API UAbilityComponentPaddleGun : public UAbilityComponentMaster , public IInterface_Fire
 {
 	GENERATED_BODY()
 
@@ -19,4 +20,8 @@ public:
 
     //Functions
     UFUNCTION(BlueprintCallable, Category="Ability") void SetupAbility();
+    UFUNCTION(BlueprintCallable, Category="Ability") void RemoveAbility();
+    UFUNCTION(BlueprintCallable, Category="Ability") void AddAmmo(float AmountToAdd);
+    UFUNCTION(BlueprintCallable, BlueprintPure, Category="Ability") bool HasAmmo() const;
+    UFUNCTION(BlueprintCallable, Category="Ability") void FireGun();
 };

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "InputMappingContext.h"
+#include "Interface_Fire.h"
 
 #include "BU_PlayerController.generated.h"
 
@@ -14,7 +15,7 @@ class APlayerPaddle;
 //
 
 UCLASS()
-class BRICKEDUP_API ABU_PlayerController : public APlayerController
+class BRICKEDUP_API ABU_PlayerController : public APlayerController , public IInterface_Fire
 {
 	GENERATED_BODY()
 

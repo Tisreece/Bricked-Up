@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
 #include "AbilityInformation_Struct.h"
+#include "Interface_Fire.h"
 
 #include "PlayerPaddle.generated.h"
 
@@ -16,7 +17,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FAbilityChanged);
 
 
 UCLASS()
-class BRICKEDUP_API APlayerPaddle : public APawn
+class BRICKEDUP_API APlayerPaddle : public APawn , public IInterface_Fire
 {
 	GENERATED_BODY()
 
