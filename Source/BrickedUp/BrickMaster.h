@@ -41,9 +41,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health") int MaxHealth = 1;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health") int Health = 1;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Audio") USoundBase* DestroyAudio = nullptr;
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Audio") ABall* BallHit = nullptr;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Hit") AActor* ActorHitting = nullptr;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Audio") USoundBase* DestroyAudio = nullptr;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Mesh") UGeometryCollection* DestructionGC;
 
 	//Functions
@@ -63,7 +64,7 @@ public:
 
 	
 	//Events
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category="Hit") void HitEffect();
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category="Hit") void HitEffect(AActor* HittingActor);
 	UFUNCTION(BlueprintImplementableEvent, Category="Destruction") void StartDestruction();
 
 	//Interface

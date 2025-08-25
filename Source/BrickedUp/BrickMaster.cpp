@@ -55,7 +55,7 @@ void ABrickMaster::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, 
 {
 	if (OtherActor && OtherActor != this && OtherActor->IsA(ABall::StaticClass()))
 	{
-		BallHit = Cast<ABall>(OtherActor);
+		ABall* BallHit = Cast<ABall>(OtherActor);
 		IInterface_HitBrick::Execute_HitBrick(BallHit, this);
 	}
 }
@@ -69,6 +69,10 @@ void ABrickMaster::OnOverlapBegin(AActor* OverlappedActor, AActor* OtherActor)
 		{
 			GameMode->BrickHitPlayer();
 		}
+	}
+	else if (OtherActor && OtherActor->GetClass()->ImplementsInterface(UInterface_HitBrick::StaticClass()))
+	{
+		IInterface_HitBrick::Execute_HitBrick(OtherActor, this);
 	}
 }
 
@@ -271,9 +275,9 @@ void ABrickMaster::FindNeighbouringBricks(TArray<ABrickMaster*>& NeighbouringBri
 	}
 }
 
-void ABrickMaster::HitEffect_Implementation()
+void ABrickMaster::HitEffect_Implementation(AActor* HittingActor)
 {
-	
+	ActorHitting = HittingActor;
 }
 
 //Interface

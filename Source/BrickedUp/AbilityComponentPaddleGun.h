@@ -6,6 +6,8 @@
 
 #include "AbilityComponentPaddleGun.generated.h"
 
+class APaddleGunBullet;
+
 UCLASS()
 class BRICKEDUP_API UAbilityComponentPaddleGun : public UAbilityComponentMaster , public IInterface_Fire
 {
@@ -17,6 +19,7 @@ public:
     //Variables
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Gun") float Ammo;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Gun") float StartingAmmo = 50.0f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Gun") TSubclassOf<APaddleGunBullet> BulletClass;
 
     //Functions
     UFUNCTION(BlueprintCallable, Category="Ability") void SetupAbility();
@@ -24,4 +27,5 @@ public:
     UFUNCTION(BlueprintCallable, Category="Ability") void AddAmmo(float AmountToAdd);
     UFUNCTION(BlueprintCallable, BlueprintPure, Category="Ability") bool HasAmmo() const;
     UFUNCTION(BlueprintCallable, Category="Ability") void FireGun();
+    UFUNCTION(BlueprintCallable, Category="Ability") void SpawnBullets();
 };

@@ -2,18 +2,11 @@
 #include "Ball.h"
 #include "Kismet/GameplayStatics.h"
 
-void UBrickedUpFunctionLibrary::PlayBallHitAudio(ABall* Ball, USoundBase* HitAudioToPlay)
+void UBrickedUpFunctionLibrary::PlayBallHitAudio(AActor* HitActor, USoundBase* HitAudioToPlay)
 {
-    if (Ball)
+    if (HitActor && HitAudioToPlay)
     {
-        if (Ball->HitAudioOverride == nullptr)
-        {
-            UGameplayStatics::PlaySoundAtLocation(Ball, HitAudioToPlay, Ball->GetActorLocation());
-        }
-        else
-        {
-            // Play the hit audio of the ball
-        }
+        UGameplayStatics::PlaySoundAtLocation(HitActor, HitAudioToPlay, HitActor->GetActorLocation());
     }
 }
 
