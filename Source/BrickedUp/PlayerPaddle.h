@@ -14,6 +14,7 @@ class ABall;
 
 //Delegates
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FAbilityChanged);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FAmmoChanged);
 
 
 UCLASS()
@@ -65,6 +66,7 @@ public:
 
 	//Delegates
 	UPROPERTY(BlueprintAssignable, Category="Ability") FAbilityChanged AbilityChanged;
+	UPROPERTY(BlueprintAssignable, Category="Ability") FAmmoChanged AmmoChanged;
 	
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Input") void SetPlayerController();

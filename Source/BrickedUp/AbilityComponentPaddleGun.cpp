@@ -16,8 +16,8 @@ void UAbilityComponentPaddleGun::SetupAbility()
     if (PlayerPaddle)
     {
         PlayerPaddle->SetGunVisibility(true);
+        PlayerPaddle->AmmoChanged.Broadcast();
     }
-    GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, FString::Printf(TEXT("Ammo: %f"), Ammo));
 }
 
 void UAbilityComponentPaddleGun::RemoveAbility()
@@ -33,7 +33,11 @@ void UAbilityComponentPaddleGun::RemoveAbility()
 void UAbilityComponentPaddleGun::AddAmmo(float AmountToAdd)
 {
     Ammo += AmountToAdd;
-    GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, FString::Printf(TEXT("Ammo: %f"), Ammo));
+    APlayerPaddle* PlayerPaddle = Cast<APlayerPaddle>(GetOwner());
+    if (PlayerPaddle)
+    {
+        PlayerPaddle->AmmoChanged.Broadcast();
+    }
 }
 
 bool UAbilityComponentPaddleGun::HasAmmo() const
@@ -46,7 +50,11 @@ void UAbilityComponentPaddleGun::FireGun()
     SpawnBullets();
     UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetOwner()->GetActorLocation());
     Ammo -= 1.0f;
-    GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, FString::Printf(TEXT("Ammo: %f"), Ammo));
+    APlayerPaddle* PlayerPaddle = Cast<APlayerPaddle>(GetOwner());
+    if (PlayerPaddle)
+    {
+        PlayerPaddle->AmmoChanged.Broadcast();
+    }
 
     if (!HasAmmo())
     {
