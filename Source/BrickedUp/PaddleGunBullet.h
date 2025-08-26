@@ -3,11 +3,12 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Interface_HitBrick.h"
+#include "Interface_HitCeiling.h"
 
 #include "PaddleGunBullet.generated.h"
 
 UCLASS()
-class BRICKEDUP_API APaddleGunBullet : public AActor, public IInterface_HitBrick
+class BRICKEDUP_API APaddleGunBullet : public AActor, public IInterface_HitBrick, public IInterface_HitCeiling
 {
     GENERATED_BODY()
 protected:

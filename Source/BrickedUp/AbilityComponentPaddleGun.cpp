@@ -1,6 +1,7 @@
 #include "AbilityComponentPaddleGun.h"
 #include "PlayerPaddle.h"
 #include "PaddleGunBullet.h"
+#include "Kismet/GameplayStatics.h"
 
 UAbilityComponentPaddleGun::UAbilityComponentPaddleGun()
 {
@@ -43,6 +44,7 @@ bool UAbilityComponentPaddleGun::HasAmmo() const
 void UAbilityComponentPaddleGun::FireGun()
 {
     SpawnBullets();
+    UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetOwner()->GetActorLocation());
     Ammo -= 1.0f;
     GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, FString::Printf(TEXT("Ammo: %f"), Ammo));
 

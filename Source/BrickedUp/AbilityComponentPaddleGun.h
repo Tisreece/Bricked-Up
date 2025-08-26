@@ -18,8 +18,10 @@ public:
 
     //Variables
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Gun") float Ammo;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Gun") float StartingAmmo = 50.0f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Gun") float StartingAmmo = 20.0f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Ability|Gun") TSubclassOf<APaddleGunBullet> BulletClass;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Audio") USoundBase* FireSound;
 
     //Functions
     UFUNCTION(BlueprintCallable, Category="Ability") void SetupAbility();
