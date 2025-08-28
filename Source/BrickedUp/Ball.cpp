@@ -23,6 +23,7 @@ ABall::ABall()
 	Ball = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Ball"));
 	Ball->SetupAttachment(BallCollision);
 
+	BallCollision->OnComponentHit.AddDynamic(this, &ABall::OnHit);
 
 }
 
@@ -47,6 +48,43 @@ void ABall::Tick(float DeltaTime)
 	}
 }
 
+void ABall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+{
+	if (OtherActor && OtherActor != this)
+	{
+		if (OtherActor->IsA(APlayerPaddle::StaticClass()))
+		{
+			// Hit Player Paddle
+			APlayerPaddle* Paddle = Cast<APlayerPaddle>(OtherActor);
+			if (Paddle)
+			{
+				FVector LocalHit = Paddle->PaddleCollision->GetComponentTransform().InverseTransformPosition(Hit.ImpactPoint);
+				float HalfWidth = Paddle->PaddleCollision->GetUnscaledBoxExtent().X;
+				float LocalX = LocalHit.X;
+
+				float HitExtent = FMath::Clamp(LocalX / HalfWidth, -1.0f, 1.0f);
+
+				ReflectMovement(true, Hit.Normal, HitExtent);
+				FTimerHandle TimerHandle;
+				GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &ABall::CanHitPlayerReset, 0.2f, false);
+			}
+		}
+		else if (OtherActor->IsA(ABall::StaticClass()))
+		{
+			// Hit Another Ball
+			ABall* OtherBall = Cast<ABall>(OtherActor);
+			if (OtherBall)
+			{
+				BallCollision->IgnoreActorWhenMoving(OtherBall, true);
+			}
+		}
+		else
+		{
+			ReflectMovement(false, Hit.Normal, 0.0f);
+		}
+	}
+}
+
 void ABall::ApplyPhysics(float DeltaTime)
 {
 	Velocity = Velocity.GetSafeNormal() * Speed;
@@ -56,15 +94,16 @@ void ABall::ApplyPhysics(float DeltaTime)
 	Ball->AddLocalRotation(Rotation * DeltaTime, true);
 }
 
-void ABall::ReflectMovement(bool HitPlayer, FVector HitNormal, FVector PaddleVelocity)
+void ABall::ReflectMovement(bool HitPlayer, FVector HitNormal, float HitExtent)
 {
 	if (HitPlayer)
 	{
 		if (CanHitPlayer)
 		{
 			Velocity = Velocity.MirrorByVector(HitNormal);
+			float FixedHitExtent = HitExtent * -1.0f;
 
-			Velocity.Y += PaddleVelocity.X * MomentumInfluenceFactor;
+			Velocity.Y += FixedHitExtent * MomentumInfluenceFactor;
 			Velocity.Z += PlayerVelocityBoost;
 			CanHitPlayer = false;
 		}
@@ -135,4 +174,10 @@ void ABall::GetComponentWithInterface(TSubclassOf<UInterface> Interface, UAbilit
 void ABall::HitKillZone_Implementation()
 {
 
+}
+
+//Timers
+void ABall::CanHitPlayerReset()
+{
+	CanHitPlayer = true;
 }

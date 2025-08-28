@@ -24,6 +24,8 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	UFUNCTION(BlueprintCallable, Category="Hit") 
+		void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
 public:	
 	// Called every frame
@@ -50,13 +52,16 @@ public:
 
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Movement") void ApplyPhysics(float DeltaTime);
-	UFUNCTION(BlueprintCallable, Category="Movement") void ReflectMovement(bool HitPlayer, FVector HitNormal, FVector PaddleVelocity);
+	UFUNCTION(BlueprintCallable, Category="Movement") void ReflectMovement(bool HitPlayer, FVector HitNormal, float HitExtent);
 
 	UFUNCTION(BlueprintCallable, Category="Attach") void AttachToPaddle(APlayerPaddle* Paddle);
 	UFUNCTION(BlueprintCallable, Category="Attach") void DetachFromPaddle(APlayerPaddle* Paddle);
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Hit") void GetBrickHitOverridingComponent(UAbilityComponentMaster*& OverridingComponent) const;
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Component") void GetComponentWithInterface(TSubclassOf<UInterface> Interface, UAbilityComponentMaster*& OverridingComponent) const;
+
+	//Timers
+	UFUNCTION() void CanHitPlayerReset();
 
 	//Interface
 	virtual void HitKillZone_Implementation() override;
