@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
+#include "steam/steam_api.h"
+#include "steam/isteaminventory.h"
+
 #include "BUGameInstance.generated.h"
 
 class UBUSaveGame;
@@ -18,6 +21,8 @@ protected:
 	virtual void Init() override;
 
 public:
+	UBUGameInstance();
+	~UBUGameInstance();
 
 	//Variables
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="SaveGame") UBUSaveGame* SaveGameRef;
@@ -39,5 +44,11 @@ public:
 	//Events
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="SaveGame") void SaveGame();
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="Leaderboard") void AddNewScore(const FString& EntryName);
-		
+
+	void OnInventoryResultReady(SteamInventoryResultReady_t* Callback);
+	SteamInventoryResult_t PendingResultHandle = k_SteamInventoryResultInvalid;
+private:
+	//STEAM_CALLBACK(UBUGameInstance, OnInventoryResultReady, SteamInventoryResultReady_t, InventoryResultCallback);
+	CCallback<UBUGameInstance, SteamInventoryResultReady_t, false>* InventoryResultCallback;
+
 };

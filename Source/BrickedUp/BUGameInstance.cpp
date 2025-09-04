@@ -14,6 +14,17 @@
 #include "Framework/Application/SlateApplication.h"
 #include "HAL/PlatformApplicationMisc.h"
 
+UBUGameInstance::UBUGameInstance()
+{
+    InventoryResultCallback = new CCallback<UBUGameInstance, SteamInventoryResultReady_t, false>(this, &UBUGameInstance::OnInventoryResultReady);
+}
+
+UBUGameInstance::~UBUGameInstance()
+{
+    delete InventoryResultCallback;
+    InventoryResultCallback = nullptr;
+}
+
 void UBUGameInstance::Init()
 {
     Super::Init();
@@ -150,6 +161,27 @@ void UBUGameInstance::SetGameOptions(bool SetAudioOptions, bool SetGraphicsOptio
             Settings->ApplySettings(false);
         }
     }
+}
+
+// Steam Functions
+void UBUGameInstance::OnInventoryResultReady(SteamInventoryResultReady_t* Callback)
+{
+    if (Callback->m_handle != PendingResultHandle)
+    {
+        return;
+    }
+
+    if (Callback->m_result == EResult::k_EResultOK)
+    {
+        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, TEXT("Steam Item Successfully Granted"));
+    }
+    else
+    {
+        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, FString::Printf(TEXT("Warning: Failed to grant Steam Item, Error Code: %d"), Callback->m_result));
+    }
+
+    SteamInventory()->DestroyResult(PendingResultHandle);
+    PendingResultHandle = k_SteamInventoryResultInvalid;
 }
 
 
