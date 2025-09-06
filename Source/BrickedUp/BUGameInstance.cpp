@@ -13,16 +13,20 @@
 #include "GenericPlatform/GenericApplication.h"
 #include "Framework/Application/SlateApplication.h"
 #include "HAL/PlatformApplicationMisc.h"
+#include "SteamFunctionLibrary.h"
 
 UBUGameInstance::UBUGameInstance()
 {
     InventoryResultCallback = new CCallback<UBUGameInstance, SteamInventoryResultReady_t, false>(this, &UBUGameInstance::OnInventoryResultReady);
+    ConsumeResultCallback = new CCallback<UBUGameInstance, SteamInventoryResultReady_t, false>(this, &UBUGameInstance::OnConsumeResultReady);
 }
 
 UBUGameInstance::~UBUGameInstance()
 {
     delete InventoryResultCallback;
+    delete ConsumeResultCallback;
     InventoryResultCallback = nullptr;
+    ConsumeResultCallback = nullptr;
 }
 
 void UBUGameInstance::Init()
@@ -173,15 +177,60 @@ void UBUGameInstance::OnInventoryResultReady(SteamInventoryResultReady_t* Callba
 
     if (Callback->m_result == EResult::k_EResultOK)
     {
-        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, TEXT("Steam Item Successfully Granted"));
+        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Inventory Operation Successful"));
     }
     else
     {
-        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, FString::Printf(TEXT("Warning: Failed to grant Steam Item, Error Code: %d"), Callback->m_result));
+        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("Warning: Failed Steam Inventory Operation, Error Code: %d"), Callback->m_result));
     }
 
+    if (bPendingRemove)
+    {
+        bPendingRemove = false;
+        USteamFunctionLibrary::RemoveInventoryItem(this, static_cast<int64>(Callback->m_handle), PendingRemoveItemID, PendingRemoveQuantity);
+        PendingRemoveItemID = 0;
+        PendingRemoveQuantity = 0;
+    }
+
+    // Destroy the handle to prevent memory leaks
     SteamInventory()->DestroyResult(PendingResultHandle);
     PendingResultHandle = k_SteamInventoryResultInvalid;
+}
+
+void UBUGameInstance::OnConsumeResultReady(SteamInventoryResultReady_t* Callback)
+{
+    if (Callback->m_handle != ConsumeResultHandle)
+    {
+        return;
+    }
+
+    if (Callback->m_result == EResult::k_EResultOK)
+    {
+        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Item Consumption Successful"));
+    }
+    else
+    {
+        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("Warning: Failed Item Consumption, Error Code: %d"), Callback->m_result));
+    }
+
+    // Destroy the handle to prevent memory leaks
+    SteamInventory()->DestroyResult(ConsumeResultHandle);
+    ConsumeResultHandle = k_SteamInventoryResultInvalid;
+}
+
+void UBUGameInstance::AddRecentlyConsumedItem(SteamItemInstanceID_t InstanceID, int32 ItemID)
+{
+    RecentlyConsumedItems.Add(InstanceID, ItemID);
+
+    FTimerHandle TimerHandle;
+    FTimerDelegate TimerDel;
+    TimerDel.BindUObject(this, &UBUGameInstance::RemoveRecentlyConsumedItem, InstanceID);
+    GetWorld()->GetTimerManager().SetTimer(TimerHandle, TimerDel, 10.0f, false);
+}
+
+void UBUGameInstance::RemoveRecentlyConsumedItem(SteamItemInstanceID_t InstanceID)
+{
+    RecentlyConsumedItems.Remove(InstanceID);
 }
 
 

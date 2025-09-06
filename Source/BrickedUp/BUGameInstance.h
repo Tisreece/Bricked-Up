@@ -45,10 +45,24 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="SaveGame") void SaveGame();
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="Leaderboard") void AddNewScore(const FString& EntryName);
 
-	void OnInventoryResultReady(SteamInventoryResultReady_t* Callback);
+	// Steam Functions and Variables
+public:
+	
+	//Variables
 	SteamInventoryResult_t PendingResultHandle = k_SteamInventoryResultInvalid;
-private:
-	//STEAM_CALLBACK(UBUGameInstance, OnInventoryResultReady, SteamInventoryResultReady_t, InventoryResultCallback);
-	CCallback<UBUGameInstance, SteamInventoryResultReady_t, false>* InventoryResultCallback;
+	SteamInventoryResult_t ConsumeResultHandle = k_SteamInventoryResultInvalid;
+	bool bPendingRemove = false;
+	int32 PendingRemoveItemID = 0;
+	int32 PendingRemoveQuantity = 0;
+	TMap<SteamItemInstanceID_t, int32> RecentlyConsumedItems;
 
+	//Functions
+	void OnInventoryResultReady(SteamInventoryResultReady_t* Callback);
+	void OnConsumeResultReady(SteamInventoryResultReady_t* Callback);
+	void AddRecentlyConsumedItem(SteamItemInstanceID_t InstanceID, int32 ItemID);
+	void RemoveRecentlyConsumedItem(SteamItemInstanceID_t InstanceID);
+
+private:
+	CCallback<UBUGameInstance, SteamInventoryResultReady_t, false>* InventoryResultCallback;
+	CCallback<UBUGameInstance, SteamInventoryResultReady_t, false>* ConsumeResultCallback;
 };
