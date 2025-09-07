@@ -54,13 +54,20 @@ public:
 	bool bPendingRemove = false;
 	int32 PendingRemoveItemID = 0;
 	int32 PendingRemoveQuantity = 0;
+	bool bPendingUniqueAdd = false;
+	int32 PendingUniqueAddItemID = 0;
+	int32 PendingUniqueAddQuantity = 0;
 	TMap<SteamItemInstanceID_t, int32> RecentlyConsumedItems;
+	TArray<int32> RecentlyAddedItemTypes;
+
 
 	//Functions
 	void OnInventoryResultReady(SteamInventoryResultReady_t* Callback);
 	void OnConsumeResultReady(SteamInventoryResultReady_t* Callback);
 	void AddRecentlyConsumedItem(SteamItemInstanceID_t InstanceID, int32 ItemID);
 	void RemoveRecentlyConsumedItem(SteamItemInstanceID_t InstanceID);
+	void AddRecentlyAddedItemType(int32 ItemID);
+	void RemoveRecentlyAddedItemType(int32 ItemID);
 
 private:
 	CCallback<UBUGameInstance, SteamInventoryResultReady_t, false>* InventoryResultCallback;

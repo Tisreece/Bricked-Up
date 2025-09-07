@@ -192,6 +192,14 @@ void UBUGameInstance::OnInventoryResultReady(SteamInventoryResultReady_t* Callba
         PendingRemoveQuantity = 0;
     }
 
+    if (bPendingUniqueAdd)
+    {
+        bPendingUniqueAdd = false;
+        USteamFunctionLibrary::AddInventoryItem(this, static_cast<int64>(Callback->m_handle), PendingUniqueAddItemID, PendingUniqueAddQuantity, true);
+        PendingUniqueAddItemID = 0;
+        PendingUniqueAddQuantity = 0;
+    }
+
     // Destroy the handle to prevent memory leaks
     SteamInventory()->DestroyResult(PendingResultHandle);
     PendingResultHandle = k_SteamInventoryResultInvalid;
@@ -225,7 +233,7 @@ void UBUGameInstance::AddRecentlyConsumedItem(SteamItemInstanceID_t InstanceID, 
     FTimerHandle TimerHandle;
     FTimerDelegate TimerDel;
     TimerDel.BindUObject(this, &UBUGameInstance::RemoveRecentlyConsumedItem, InstanceID);
-    GetWorld()->GetTimerManager().SetTimer(TimerHandle, TimerDel, 10.0f, false);
+    GetWorld()->GetTimerManager().SetTimer(TimerHandle, TimerDel, 60.0f, false);
 }
 
 void UBUGameInstance::RemoveRecentlyConsumedItem(SteamItemInstanceID_t InstanceID)
@@ -233,4 +241,17 @@ void UBUGameInstance::RemoveRecentlyConsumedItem(SteamItemInstanceID_t InstanceI
     RecentlyConsumedItems.Remove(InstanceID);
 }
 
+void UBUGameInstance::AddRecentlyAddedItemType(int32 ItemID)
+{
+    RecentlyAddedItemTypes.AddUnique(ItemID);
 
+    FTimerHandle TimerHandle;
+    FTimerDelegate TimerDel;
+    TimerDel.BindUObject(this, &UBUGameInstance::RemoveRecentlyAddedItemType, ItemID);
+    GetWorld()->GetTimerManager().SetTimer(TimerHandle, TimerDel, 60.0f, false);
+}
+
+void UBUGameInstance::RemoveRecentlyAddedItemType(int32 ItemID)
+{
+    RecentlyAddedItemTypes.Remove(ItemID);
+}

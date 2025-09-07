@@ -2,7 +2,88 @@
 #include "BUGameInstance.h"
 #include "Async/Async.h"
 
-void USteamFunctionLibrary::AddInventoryItem(UObject* WorldContextObject, int32 ItemID, int32 Quantity)
+void USteamFunctionLibrary::RequestInventoryRefresh()
+{
+    if (!SteamInventory())
+    {
+        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Warning: Steam Inventory not initialized"));
+        return;
+    }
+    SteamInventory()->GetAllItems(nullptr);
+}
+
+void USteamFunctionLibrary::RequestInventoryItemAdd(UObject* WorldContextObject, int32 ItemID, int32 Quantity, bool Unique)
+{
+    if (ItemID <=0)
+    {
+        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Warning: ItemID must be greater than 0"));
+        return;
+    }
+    
+    if (!Unique) //Can Grant item instantly since it is not a unique item
+    {
+        AddInventoryItem(WorldContextObject, ItemID, Quantity, false);
+        return;
+    }
+    else //Unique, need to check if items is already owned
+    {
+        UBUGameInstance* GameInstance = Cast<UBUGameInstance>(WorldContextObject->GetWorld()->GetGameInstance());
+        if (!SteamInventory() || !GameInstance)
+        {
+            GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Warning: Steam Inventory not initialized or Game Instance not found"));
+            return;
+        }
+        GameInstance->bPendingUniqueAdd = true;
+        GameInstance->PendingUniqueAddItemID = ItemID;
+        GameInstance->PendingUniqueAddQuantity = Quantity;
+        SteamInventory()->GetAllItems(&GameInstance->PendingResultHandle);
+    }
+}
+
+bool USteamFunctionLibrary::OwnsItemType(int32 ItemID, int64 ResultHandle, UBUGameInstance* GameInstance)
+{
+    if (GameInstance->RecentlyAddedItemTypes.Contains(ItemID))
+    {
+        return true;
+    }
+    
+    if (!SteamInventory())
+    {
+        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Warning: Steam Inventory not initialized"));
+        return false;
+    }
+
+    uint32 Count = 0;
+
+    if (!SteamInventory()->GetResultItems(ResultHandle, nullptr, &Count))
+    {
+        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, TEXT("No Steam Inventory Items found of ID"));
+        return false;
+    }
+    
+    TArray<SteamItemDetails_t> Items;
+    Items.SetNumUninitialized(Count);
+
+    if (!SteamInventory()->GetResultItems(ResultHandle, Items.GetData(), &Count))
+    {
+        GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Warning: Steam Inventory Item data retrieval failed"));
+        return false;
+    }
+
+    for (uint32 i = 0; i < Count; i++)
+    {
+        if (
+            Items[i].m_iDefinition == ItemID && 
+            Items[i].m_unQuantity > 0
+        )
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+void USteamFunctionLibrary::AddInventoryItem(UObject* WorldContextObject, int64 ResultHandle, int32 ItemID, int32 Quantity, bool Unique)
 {
     UBUGameInstance* GameInstance = Cast<UBUGameInstance>(WorldContextObject->GetWorld()->GetGameInstance());
     if (!SteamInventory())
@@ -16,12 +97,22 @@ void USteamFunctionLibrary::AddInventoryItem(UObject* WorldContextObject, int32 
         return;
     }
 
+    if (Unique)
+    {
+        bool OwnsItem = OwnsItemType(ItemID, ResultHandle, GameInstance);
+        if (OwnsItem)
+        {
+            GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("Warning: Cannot add Item %d to inventory, already owned"), ItemID));
+            return;
+        }
+    }
+
     SteamItemDef_t ItemDefID = static_cast<SteamItemDef_t>(ItemID);
-    SteamInventoryResult_t ResultHandle = k_SteamInventoryResultInvalid;
+    SteamInventoryResult_t AddResultHandle = k_SteamInventoryResultInvalid;
     uint32 QuantityToAdd = static_cast<uint32>(Quantity);
 
-    bool Success = SteamInventory()->GenerateItems(&ResultHandle, &ItemDefID, &QuantityToAdd, 1);
-    GameInstance->PendingResultHandle = ResultHandle;
+    bool Success = SteamInventory()->GenerateItems(&AddResultHandle, &ItemDefID, &QuantityToAdd, 1);
+    GameInstance->PendingResultHandle = AddResultHandle;
     if (!Success)
     {
         GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("Warning: Failed to Generate Item %d"), ItemID));
@@ -29,8 +120,13 @@ void USteamFunctionLibrary::AddInventoryItem(UObject* WorldContextObject, int32 
     }
     else
     {
+        AsyncTask(ENamedThreads::GameThread, [GameInstance, ItemID]()
+        {
+            GameInstance->AddRecentlyAddedItemType(ItemID);
+        });
         GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, FString::Printf(TEXT("Successfully added %d of Item %d to inventory"), Quantity, ItemID));
     }
+    RequestInventoryRefresh();
 }
 
 int64 USteamFunctionLibrary::GetLastItemInstance(int32 ItemID, int64 ResultHandle, UBUGameInstance* GameInstance)
@@ -115,6 +211,7 @@ void USteamFunctionLibrary::RemoveInventoryItem(UObject* WorldContextObject, int
         });
         GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, FString::Printf(TEXT("Successfully removed %d of Item %llu from inventory"), Quantity, static_cast<unsigned long long>(InstanceID)));
     }
+    RequestInventoryRefresh();
 }
 
 void USteamFunctionLibrary::RequestInventoryItemRemoval(UObject* WorldContextObject, int32 ItemID, int32 Quantity)
