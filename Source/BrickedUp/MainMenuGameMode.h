@@ -13,5 +13,17 @@ UCLASS()
 class BRICKEDUP_API AMainMenuGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
+
+public:
+
+	//Variables
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Audio") USoundBase* MainMenuMusic;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Audio") UAudioComponent* MainMenuMusicComponent;
+
+	//Functions
+	UFUNCTION(BlueprintCallable, Category = "Audio") void PlayMainMenuMusic();
+
+	//Events
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category = "Audio") void FadeOutMainMenuMusic();
 	
 };
