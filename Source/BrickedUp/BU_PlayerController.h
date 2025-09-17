@@ -39,5 +39,7 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category="UI|Pause") void PauseMenuHandler(bool Open);
 	UFUNCTION(BlueprintCallable, Category="Input") void SetDebugInputs(UInputAction* EscapeAction);
+
+	UFUNCTION(BlueprintCallable, Category = "Console Commands") void TakeHighResScreenshot(int Width = 1920, int Height = 1080);
 	
 };

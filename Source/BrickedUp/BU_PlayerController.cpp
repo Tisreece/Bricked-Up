@@ -94,3 +94,12 @@ void ABU_PlayerController::SetDebugInputs(UInputAction* EscapeAction)
     }
 }
 
+void ABU_PlayerController::TakeHighResScreenshot(int Width, int Height)
+{
+    // FString Command = FString::Printf(TEXT("HighResShot %dx%d showui"), Width, Height);
+    // ConsoleCommand(Command, false);
+    FString Timestamp = FDateTime::Now().ToString();
+    FString Filename = FString::Printf(TEXT("Screenshot_%s.png"), *Timestamp);
+    FScreenshotRequest::RequestScreenshot(Filename, false, false);
+}
+
