@@ -11,7 +11,7 @@
 ABU_PlayerController::ABU_PlayerController()
 {
     PrimaryActorTick.bCanEverTick = true;
-
+    bEnableClickEvents = true;
 }
 
 void ABU_PlayerController::BeginPlay()
