@@ -1,6 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "BUGameInstance.h"
 #include "BUSaveGame.h"
 #include "Kismet/GameplayStatics.h"
@@ -167,7 +164,7 @@ void UBUGameInstance::SetGameOptions(bool SetAudioOptions, bool SetGraphicsOptio
     }
 }
 
-// Steam Functions
+// Steam Functions ---------------------------------------------------------------------------------------------------------------------------------------------
 void UBUGameInstance::OnInventoryResultReady(SteamInventoryResultReady_t* Callback)
 {
     if (Callback->m_handle != PendingResultHandle)

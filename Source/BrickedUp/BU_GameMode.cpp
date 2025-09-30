@@ -5,6 +5,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Ball.h"
 #include "AbilityDrop.h"
+#include "BUGameInstance.h"
 
 void ABU_GameMode::CheckBallCount(int32& BallCount)
 {
@@ -17,6 +18,7 @@ void ABU_GameMode::CheckBallCount(int32& BallCount)
 void ABU_GameMode::AddScore(float ScoreToAdd)
 {
     this->Score += ScoreToAdd;
+    CheckScoreAchievements();
     ScoreChanged.Broadcast();
 }
 
@@ -64,4 +66,25 @@ void ABU_GameMode::GetPositiveDropChance(bool& PositiveDrop)
 
     float RandomValue = FMath::RandRange(0.0f, TotalWeight);
     PositiveDrop = (RandomValue <= PositiveDropChance);
+}
+
+void ABU_GameMode::CheckScoreAchievements()
+{
+    UBUGameInstance* GameInstance = Cast<UBUGameInstance>(GetGameInstance());
+    if (Score < 1000)
+    {
+        return;
+    }
+    else if (Score >= 25000)
+    {
+        GameInstance->WriteAchievementProgress(TEXT("POINTS25000_ACH"), 100.0f);
+    }
+    else if (Score >= 10000)
+    {
+        GameInstance->WriteAchievementProgress(TEXT("POINTS10000_ACH"), 100.0f);
+    }
+    else if (Score >= 1000)
+    {
+        GameInstance->WriteAchievementProgress(TEXT("POINTS1000_ACH"), 100.0f);
+    }
 }

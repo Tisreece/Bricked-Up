@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -41,12 +39,13 @@ public:
 
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Leaderboard") void CanHighScore(bool& CanHighScore) const;
 
+	
 	//Events
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="SaveGame") void SaveGame();
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="Leaderboard") void AddNewScore(const FString& EntryName);
-
-	// Steam Functions and Variables
-public:
+	
+	// Steam Inventory System
+	public:
 	
 	//Variables
 	SteamInventoryResult_t PendingResultHandle = k_SteamInventoryResultInvalid;
@@ -59,8 +58,8 @@ public:
 	int32 PendingUniqueAddQuantity = 0;
 	TMap<SteamItemInstanceID_t, int32> RecentlyConsumedItems;
 	TArray<int32> RecentlyAddedItemTypes;
-
-
+	
+	
 	//Functions
 	void OnInventoryResultReady(SteamInventoryResultReady_t* Callback);
 	void OnConsumeResultReady(SteamInventoryResultReady_t* Callback);
@@ -68,8 +67,14 @@ public:
 	void RemoveRecentlyConsumedItem(SteamItemInstanceID_t InstanceID);
 	void AddRecentlyAddedItemType(int32 ItemID);
 	void RemoveRecentlyAddedItemType(int32 ItemID);
-
-private:
+	
+	private:
 	CCallback<UBUGameInstance, SteamInventoryResultReady_t, false>* InventoryResultCallback;
 	CCallback<UBUGameInstance, SteamInventoryResultReady_t, false>* ConsumeResultCallback;
+	
+	// Steam Achievements
+public:
+
+	//Events
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="Steam|Achievements") void WriteAchievementProgress(const FString& AchievementID, float Percent);
 };

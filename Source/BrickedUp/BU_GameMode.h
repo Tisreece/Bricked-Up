@@ -37,6 +37,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Lose Condition") void CheckBallCount(int32& BallCount);
 
 	UFUNCTION(BlueprintCallable, Category="Scoring") void AddScore(float ScoreToAdd);
+	UFUNCTION(BlueprintCallable, Category="Steam|Achievements") void CheckScoreAchievements();
 
 	UFUNCTION(BlueprintCallable, Category="Drop") void GetDrop(TSubclassOf<AAbilityDrop>& Drop, bool& ShouldDrop);
 	UFUNCTION(BlueprintCallable, Category="Drop") void GetPositiveDropChance(bool& PositiveDrop);
