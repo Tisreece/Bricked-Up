@@ -24,3 +24,12 @@ void UAbilityComponentWaterBall::ResetBallMaterial(UMaterial* ResetMaterial)
         Ball->Ball->SetMaterial(0, ResetMaterial);
     }
 }
+
+void UAbilityComponentWaterBall::TriggerGuardianAngelCheck()
+{
+    ABall* Ball = Cast<ABall>(GetOwner());
+    if (Ball)
+    {
+        Ball->GuardianAngel();
+    }
+}

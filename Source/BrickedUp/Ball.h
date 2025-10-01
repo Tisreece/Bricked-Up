@@ -60,6 +60,9 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Hit") void GetBrickHitOverridingComponent(UAbilityComponentMaster*& OverridingComponent) const;
 	UFUNCTION(BlueprintCallable, BlueprintPure, Category="Component") void GetComponentWithInterface(TSubclassOf<UInterface> Interface, UAbilityComponentMaster*& OverridingComponent) const;
 
+	//Events
+	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="Steam|Achievements") void GuardianAngel();
+
 	//Timers
 	UFUNCTION() void CanHitPlayerReset();
 
