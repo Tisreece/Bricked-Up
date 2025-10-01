@@ -12,4 +12,5 @@ class BRICKEDUP_API UAbilityComponentBallSplit : public UAbilityComponentMaster
 
 public:
     UFUNCTION(BlueprintCallable, Category="Ability") void SplitBall();
+    UFUNCTION(BlueprintCallable, Category="Steam|Achievements") void CheckTotalBalls();
 };

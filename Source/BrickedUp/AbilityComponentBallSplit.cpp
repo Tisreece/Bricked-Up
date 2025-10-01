@@ -1,5 +1,7 @@
 #include "AbilityComponentBallSplit.h"
 #include "Ball.h"
+#include "Kismet/GameplayStatics.h"
+#include "BUGameInstance.h"
 
 void UAbilityComponentBallSplit::SplitBall()
 {
@@ -15,5 +17,20 @@ void UAbilityComponentBallSplit::SplitBall()
         FVector NewVelocity = Ball->Velocity;
         NewVelocity.Y = NewVelocity.Y * -1.0f;
         NewBall->Velocity = NewVelocity;
+
+        CheckTotalBalls();
+    }
+}
+
+void UAbilityComponentBallSplit::CheckTotalBalls()
+{
+    TArray<AActor*> FoundActors;
+    UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABall::StaticClass(), FoundActors);
+
+    int Count = FoundActors.Num();
+    if (Count >= 50)
+    {
+        UBUGameInstance* GameInstance = Cast<UBUGameInstance>(GetWorld()->GetGameInstance());
+        GameInstance->WriteAchievementProgress(TEXT("50BALLS_ACH"), 100.0f);
     }
 }
