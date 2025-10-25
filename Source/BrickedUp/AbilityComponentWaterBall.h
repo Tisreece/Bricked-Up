@@ -19,5 +19,6 @@ public:
     //Functions
     UFUNCTION(BlueprintCallable, Category="Ability|Water Ball") void SetBallMaterial();
     UFUNCTION(BlueprintCallable, Category="Ability|Water Ball") void ResetBallMaterial(UMaterial* ResetMaterial);
+    UFUNCTION(BlueprintCallable, Category="Ability|Water Ball") void SetIgnorePlayer();
     UFUNCTION(BlueprintCallable, Category="Steam|Achievements") void TriggerGuardianAngelCheck();
 };

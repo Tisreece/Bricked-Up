@@ -33,3 +33,12 @@ void UAbilityComponentWaterBall::TriggerGuardianAngelCheck()
         Ball->GuardianAngel();
     }
 }
+
+void UAbilityComponentWaterBall::SetIgnorePlayer()
+{
+    ABall* Ball = Cast<ABall>(GetOwner());
+    if (Ball)
+    {
+        Ball->SetIgnorePlayer(true);
+    }
+}

@@ -53,6 +53,7 @@ public:
 	//Functions
 	UFUNCTION(BlueprintCallable, Category="Movement") void ApplyPhysics(float DeltaTime);
 	UFUNCTION(BlueprintCallable, Category="Movement") void ReflectMovement(bool HitPlayer, FVector HitNormal, float HitExtent);
+	UFUNCTION(BlueprintCallable, Category="Movement") void SetIgnorePlayer(bool ShouldIgnore);
 
 	UFUNCTION(BlueprintCallable, Category="Attach") void AttachToPaddle(APlayerPaddle* Paddle);
 	UFUNCTION(BlueprintCallable, Category="Attach") void DetachFromPaddle(APlayerPaddle* Paddle);
@@ -62,9 +63,6 @@ public:
 
 	//Events
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable, Category="Steam|Achievements") void GuardianAngel();
-
-	//Timers
-	UFUNCTION() void CanHitPlayerReset();
 
 	//Interface
 	virtual void HitKillZone_Implementation() override;

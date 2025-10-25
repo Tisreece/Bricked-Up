@@ -58,6 +58,7 @@ void ABall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimit
 			APlayerPaddle* Paddle = Cast<APlayerPaddle>(OtherActor);
 			if (Paddle)
 			{
+				PlayerPaddle = Paddle;
 				FVector LocalHit = Paddle->PaddleCollision->GetComponentTransform().InverseTransformPosition(Hit.ImpactPoint);
 				float HalfWidth = Paddle->PaddleCollision->GetUnscaledBoxExtent().X;
 				float LocalX = LocalHit.X;
@@ -65,8 +66,6 @@ void ABall::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimit
 				float HitExtent = FMath::Clamp(LocalX / HalfWidth, -1.0f, 1.0f);
 
 				ReflectMovement(true, Hit.Normal, HitExtent);
-				FTimerHandle TimerHandle;
-				GetWorld()->GetTimerManager().SetTimer(TimerHandle, this, &ABall::CanHitPlayerReset, 0.2f, false);
 			}
 		}
 		else if (OtherActor->IsA(ABall::StaticClass()))
@@ -102,16 +101,17 @@ void ABall::ReflectMovement(bool HitPlayer, FVector HitNormal, float HitExtent)
 		{
 			Velocity = Velocity.MirrorByVector(HitNormal);
 			float FixedHitExtent = HitExtent * -1.0f;
-
+	
 			Velocity.Y += FixedHitExtent * MomentumInfluenceFactor;
 			Velocity.Z += PlayerVelocityBoost;
-			CanHitPlayer = false;
+			AddActorWorldOffset(HitNormal * PlayerImpactOffset, true);
 		}
-		AddActorWorldOffset(HitNormal * PlayerImpactOffset, true);
+		SetIgnorePlayer(true);
 	}
 	else
 	{
 		Velocity = Velocity.MirrorByVector(HitNormal);
+		SetIgnorePlayer(false);
 	}
 	RotationRate *= -1;
 }
@@ -170,14 +170,26 @@ void ABall::GetComponentWithInterface(TSubclassOf<UInterface> Interface, UAbilit
 	}
 }
 
+void ABall::SetIgnorePlayer(bool ShouldIgnore)
+{
+	if (PlayerPaddle)
+	{
+		BallCollision->IgnoreActorWhenMoving(PlayerPaddle, ShouldIgnore);
+		PlayerPaddle->PaddleCollision->IgnoreActorWhenMoving(this, ShouldIgnore);
+		CanHitPlayer = !ShouldIgnore;
+		if (ShouldIgnore)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Green, FString::Printf(TEXT("Set Ignore Player to: %s"), ShouldIgnore ? TEXT("True") : TEXT("False")));
+		}
+		else
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Set Ignore Player to: %s"), ShouldIgnore ? TEXT("True") : TEXT("False")));
+		}
+	}
+}
+
 //Interfaces
 void ABall::HitKillZone_Implementation()
 {
 
-}
-
-//Timers
-void ABall::CanHitPlayerReset()
-{
-	CanHitPlayer = true;
 }
