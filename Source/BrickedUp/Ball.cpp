@@ -177,14 +177,6 @@ void ABall::SetIgnorePlayer(bool ShouldIgnore)
 		BallCollision->IgnoreActorWhenMoving(PlayerPaddle, ShouldIgnore);
 		PlayerPaddle->PaddleCollision->IgnoreActorWhenMoving(this, ShouldIgnore);
 		CanHitPlayer = !ShouldIgnore;
-		if (ShouldIgnore)
-		{
-			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Green, FString::Printf(TEXT("Set Ignore Player to: %s"), ShouldIgnore ? TEXT("True") : TEXT("False")));
-		}
-		else
-		{
-			GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Set Ignore Player to: %s"), ShouldIgnore ? TEXT("True") : TEXT("False")));
-		}
 	}
 }
 
