@@ -91,6 +91,8 @@ void ABall::ApplyPhysics(float DeltaTime)
 
 	AddActorWorldOffset(Velocity * DeltaTime, true);
 	Ball->AddLocalRotation(Rotation * DeltaTime, true);
+
+	GEngine->AddOnScreenDebugMessage(-1, 0.0f, FColor::Green, FString::Printf(TEXT("Ball Velocity: %s"), *Velocity.ToString()));
 }
 
 void ABall::ReflectMovement(bool HitPlayer, FVector HitNormal, float HitExtent)
@@ -103,7 +105,11 @@ void ABall::ReflectMovement(bool HitPlayer, FVector HitNormal, float HitExtent)
 			float FixedHitExtent = HitExtent * -1.0f;
 	
 			Velocity.Y += FixedHitExtent * MomentumInfluenceFactor;
-			Velocity.Z += PlayerVelocityBoost;
+			// Velocity.Z += PlayerVelocityBoost; We don't need this anymore since this was to prevent it re-hitting the player which is now fixed.
+			if (Velocity.X < 0)
+			{
+				Velocity.X = Velocity.X * -1;
+			}
 			AddActorWorldOffset(HitNormal * PlayerImpactOffset, true);
 		}
 		SetIgnorePlayer(true);
