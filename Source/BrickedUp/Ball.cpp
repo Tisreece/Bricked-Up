@@ -106,9 +106,13 @@ void ABall::ReflectMovement(bool HitPlayer, FVector HitNormal, float HitExtent)
 	
 			Velocity.Y += FixedHitExtent * MomentumInfluenceFactor;
 			// Velocity.Z += PlayerVelocityBoost; We don't need this anymore since this was to prevent it re-hitting the player which is now fixed.
-			if (Velocity.X < 0)
+			if (Velocity.Z < 0)
 			{
-				Velocity.X = Velocity.X * -1;
+				Velocity.Z = Velocity.Z * -1;
+			}
+			if (Velocity.Z < 10)
+			{
+				Velocity.Z += 10;
 			}
 			AddActorWorldOffset(HitNormal * PlayerImpactOffset, true);
 		}
