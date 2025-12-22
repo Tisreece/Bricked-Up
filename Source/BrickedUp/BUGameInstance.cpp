@@ -1,4 +1,5 @@
 #include "BUGameInstance.h"
+#include "BrickedUp.h"
 #include "BUSaveGame.h"
 #include "Kismet/GameplayStatics.h"
 #include "BU_GameMode.h"
@@ -11,8 +12,6 @@
 #include "Framework/Application/SlateApplication.h"
 #include "HAL/PlatformApplicationMisc.h"
 #include "SteamFunctionLibrary.h"
-
-DEFINE_LOG_CATEGORY_STATIC(LogSteamInventory, Log, All);
 
 UBUGameInstance::UBUGameInstance()
 {
@@ -181,7 +180,7 @@ void UBUGameInstance::OnInventoryResultReady(SteamInventoryResultReady_t* Callba
     else
     {
         GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("Warning: Failed Steam Inventory Operation, Error Code: %d"), Callback->m_result));
-        UE_LOG(LogSteamInventory, Warning, TEXT("Failed Steam Inventory Operation, Error Code: %d"), Callback->m_result)
+        // UE_LOG(LogSteamInventory, Warning, TEXT("Failed Steam Inventory Operation, Error Code: %d"), Callback->m_result)
     }
 
     if (bPendingRemove)
