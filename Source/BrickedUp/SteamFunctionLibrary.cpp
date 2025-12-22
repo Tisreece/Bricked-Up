@@ -126,6 +126,7 @@ void USteamFunctionLibrary::AddInventoryItem(UObject* WorldContextObject, int64 
     if (!Success)
     {
         GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("Warning: Failed to Generate Item %d"), ItemID));
+        UE_LOG(LogSteamInventory, Warning, TEXT("Failed to Generate Item %d"), ItemID)
         return;
     }
     else
@@ -135,6 +136,7 @@ void USteamFunctionLibrary::AddInventoryItem(UObject* WorldContextObject, int64 
             GameInstance->AddRecentlyAddedItemType(ItemID);
         });
         GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, FString::Printf(TEXT("Successfully added %d of Item %d to inventory"), Quantity, ItemID));
+        UE_LOG(LogSteamInventory, Log, TEXT("Successfully added %d of Item %d to inventory"), Quantity, ItemID)
     }
     RequestInventoryRefresh();
 }
@@ -145,6 +147,7 @@ int64 USteamFunctionLibrary::GetLastItemInstance(int32 ItemID, int64 ResultHandl
     if (!SteamInventory())
     {
         GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Warning: Steam Inventory not initialized"));
+        UE_LOG(LogSteamInventory, Warning, TEXT("Steam Inventory not initialized"))
         return 0;
     }
     
@@ -153,6 +156,7 @@ int64 USteamFunctionLibrary::GetLastItemInstance(int32 ItemID, int64 ResultHandl
     if(!SteamInventory()->GetResultItems(ResultHandle, nullptr, &Count))
     {
         GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, TEXT("No Steam Inventory Items found of ID"));
+        UE_LOG(LogSteamInventory, Log, TEXT("No Steam Inventory Items found of ID"))
         return 0;
     }
 
@@ -162,6 +166,7 @@ int64 USteamFunctionLibrary::GetLastItemInstance(int32 ItemID, int64 ResultHandl
     if (!SteamInventory()->GetResultItems(ResultHandle, Items.GetData(), &Count))
     {
         GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Warning: Steam Inventory Item data retrieval failed"));
+        UE_LOG(LogSteamInventory, Warning, TEXT("Steam Inventory Item data retrieval failed"))
         return 0;
     }
 
@@ -189,6 +194,7 @@ void USteamFunctionLibrary::RemoveInventoryItem(UObject* WorldContextObject, int
     if (InstanceID == k_SteamItemInstanceIDInvalid || InstanceID == 0)
     {
         GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("Warning: No instances of Item %d found in inventory"), ItemID));
+        UE_LOG(LogSteamInventory, Warning, TEXT("No instances of Item %d found in inventory"), ItemID)
         return;
     }
     
@@ -229,6 +235,7 @@ void USteamFunctionLibrary::RequestInventoryItemRemoval(UObject* WorldContextObj
     if (ItemID <=0)
     {
         GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Warning: ItemID must be greater than 0"));
+        UE_LOG(LogSteamInventory, Warning, TEXT("ItemID must be greater than 0"))
         return;
     }
 
@@ -236,6 +243,7 @@ void USteamFunctionLibrary::RequestInventoryItemRemoval(UObject* WorldContextObj
     if (!SteamInventory() || !GameInstance)
     {
         GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Warning: Steam Inventory not initialized or Game Instance not found"));
+        UE_LOG(LogSteamInventory, Warning, TEXT("Steam Inventory not initialized or Game Instance not found"))
         return;
     }
     GameInstance->bPendingRemove = true;

@@ -34,6 +34,8 @@ public class BrickedUp : ModuleRules
 			"OnlineSubsystemUtils"
 		});
 
+		PublicDefinitions.Add("UE_BUILD_SHIPPING_WITH_LOGGING=1");
+
 		// Steam Include Path
 		// string SteamPath = Path.Combine(ModuleDirectory, "../ThirdParty/Steamworks/Steamv161/sdk/public");
 		// PublicIncludePaths.Add(SteamPath);
