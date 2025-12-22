@@ -8,7 +8,7 @@ void USteamFunctionLibrary::RequestInventoryRefresh()
     if (!SteamInventory())
     {
         GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Warning: Steam Inventory not initialized"));
-        // UE_LOG(LogSteamInventory, Warning, TEXT("Steam Inventory not initialized"))
+        UE_LOG(LogSteamInventory, Warning, TEXT("Steam Inventory not initialized"))
         return;
     }
     SteamInventory()->GetAllItems(nullptr);
@@ -19,7 +19,7 @@ void USteamFunctionLibrary::RequestInventoryItemAdd(UObject* WorldContextObject,
     if (ItemID <=0)
     {
         GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Warning: ItemID must be greater than 0"));
-        // UE_LOG(LogSteamInventory, Warning, TEXT("ItemID must be greater than 0"))
+        UE_LOG(LogSteamInventory, Warning, TEXT("ItemID must be greater than 0"))
         return;
     }
     
@@ -34,7 +34,7 @@ void USteamFunctionLibrary::RequestInventoryItemAdd(UObject* WorldContextObject,
         if (!SteamInventory() || !GameInstance)
         {
             GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Warning: Steam Inventory not initialized or Game Instance not found"));
-            // UE_LOG(LogSteamInventory, Warning, TEXT("Steam Inventory not initialized or Game Instance not found"))
+            UE_LOG(LogSteamInventory, Warning, TEXT("Steam Inventory not initialized or Game Instance not found"))
             return;
         }
         GameInstance->bPendingUniqueAdd = true;
@@ -54,7 +54,7 @@ bool USteamFunctionLibrary::OwnsItemType(int32 ItemID, int64 ResultHandle, UBUGa
     if (!SteamInventory())
     {
         GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Warning: Steam Inventory not initialized"));
-        // UE_LOG(LogSteamInventory, Warning, TEXT("Steam Inventory not initialized"))
+        UE_LOG(LogSteamInventory, Warning, TEXT("Steam Inventory not initialized"))
         return false;
     }
 
@@ -63,7 +63,7 @@ bool USteamFunctionLibrary::OwnsItemType(int32 ItemID, int64 ResultHandle, UBUGa
     if (!SteamInventory()->GetResultItems(ResultHandle, nullptr, &Count))
     {
         GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, TEXT("No Steam Inventory Items found of ID"));
-        // UE_LOG(LogSteamInventory, Warning, TEXT("No Steam Inventory Items found of ID"))
+        UE_LOG(LogSteamInventory, Warning, TEXT("No Steam Inventory Items found of ID"))
         return false;
     }
     
@@ -73,7 +73,7 @@ bool USteamFunctionLibrary::OwnsItemType(int32 ItemID, int64 ResultHandle, UBUGa
     if (!SteamInventory()->GetResultItems(ResultHandle, Items.GetData(), &Count))
     {
         GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("Warning: Steam Inventory Item data retrieval failed"));
-        // UE_LOG(LogSteamInventory, Warning, TEXT("Steam Inventory Item data retrieval failed"))
+        UE_LOG(LogSteamInventory, Warning, TEXT("Steam Inventory Item data retrieval failed"))
         return false;
     }
 
@@ -96,13 +96,13 @@ void USteamFunctionLibrary::AddInventoryItem(UObject* WorldContextObject, int64 
     if (!SteamInventory())
     {
         GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, TEXT("Warning: Steam Inventory not initialized"));
-        // UE_LOG(LogSteamInventory, Warning, TEXT("Steam Inventory not initialized"))
+        UE_LOG(LogSteamInventory, Warning, TEXT("Steam Inventory not initialized"))
         return;
     }
     if (!GameInstance)
     {
         GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Cyan, TEXT("Warning: Game Instance not found"));
-        // UE_LOG(LogSteamInventory, Warning, TEXT("Game Instance not found"))
+        UE_LOG(LogSteamInventory, Warning, TEXT("Game Instance not found"))
         return;
     }
 
@@ -112,7 +112,7 @@ void USteamFunctionLibrary::AddInventoryItem(UObject* WorldContextObject, int64 
         if (OwnsItem)
         {
             GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("Warning: Cannot add Item %d to inventory, already owned"), ItemID));
-            // UE_LOG(LogSteamInventory, Warning, TEXT("Cannot add Item %d to inventory, already owned"), ItemID)
+            UE_LOG(LogSteamInventory, Warning, TEXT("Cannot add Item %d to inventory, already owned"), ItemID)
             return;
         }
     }

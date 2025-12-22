@@ -5,4 +5,4 @@
 
 IMPLEMENT_PRIMARY_GAME_MODULE( FDefaultGameModuleImpl, BrickedUp, "BrickedUp" );
 
-// DEFINE_LOG_CATEGORY(LogSteamInventory);
+DEFINE_LOG_CATEGORY(LogSteamInventory);

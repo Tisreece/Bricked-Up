@@ -180,7 +180,7 @@ void UBUGameInstance::OnInventoryResultReady(SteamInventoryResultReady_t* Callba
     else
     {
         GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("Warning: Failed Steam Inventory Operation, Error Code: %d"), Callback->m_result));
-        // UE_LOG(LogSteamInventory, Warning, TEXT("Failed Steam Inventory Operation, Error Code: %d"), Callback->m_result)
+        UE_LOG(LogSteamInventory, Warning, TEXT("Failed Steam Inventory Operation, Error Code: %d"), Callback->m_result)
     }
 
     if (bPendingRemove)
