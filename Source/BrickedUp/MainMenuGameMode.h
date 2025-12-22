@@ -6,9 +6,6 @@
 #include "GameFramework/GameModeBase.h"
 #include "MainMenuGameMode.generated.h"
 
-/**
- * 
- */
 UCLASS()
 class BRICKEDUP_API AMainMenuGameMode : public AGameModeBase
 {
