@@ -12,6 +12,8 @@
 #include "HAL/PlatformApplicationMisc.h"
 #include "SteamFunctionLibrary.h"
 
+DEFINE_LOG_CATEGORY_STATIC(LogSteamInventory, Log, All);
+
 UBUGameInstance::UBUGameInstance()
 {
     InventoryResultCallback = new CCallback<UBUGameInstance, SteamInventoryResultReady_t, false>(this, &UBUGameInstance::OnInventoryResultReady);
@@ -179,6 +181,7 @@ void UBUGameInstance::OnInventoryResultReady(SteamInventoryResultReady_t* Callba
     else
     {
         GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, FString::Printf(TEXT("Warning: Failed Steam Inventory Operation, Error Code: %d"), Callback->m_result));
+        UE_LOG(LogSteamInventory, Warning, TEXT("Failed Steam Inventory Operation, Error Code: %d"), Callback->m_result)
     }
 
     if (bPendingRemove)
